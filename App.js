@@ -10,6 +10,7 @@ import login from './screens/LogIn/login';
 import Signup from './screens/SignUP/Signup';
 import Trip from './screens/Trip';
 import Complete from './screens/Complete';
+import ResetPassword from './screens/ResetPassword/ResetPassword';
 
 const Stack = createStackNavigator();
 

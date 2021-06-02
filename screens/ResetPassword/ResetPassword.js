@@ -1,127 +1,128 @@
-import React, {useState} from 'react';
-import { StatusBar } from 'expo-status-bar';
+import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  SafeAreaView,
+  TextInput,
+  Linking,
+  Dimensions,
+} from 'react-native';
 
+import SubmitButton from '../../components/SubmitButton';
+import Hedding from '../../components/Hedding';
+import ViewTextInput from '../../components/ViewTextInput';
 
-//formik package install to form design
-import {Formik} from 'formik';
+const Home = props => {
+  const { navigation } = props;
+  const [tripId, setTripId] = useState('');
+  const [userId, setUserId] = useState('');
+  return (
 
-//icons 
-import{Octicons, Ionicons, Fontisto} from '@expo/vector-icons';
-
-
-
-
-//importing styled container we created
-import{
-    StyledContainer,
-    InnerContainer,
-    PageLogo,
-    PageTitle,
-    StyledFormArea,
-    LeftIcon,
-    StyledInputLabel,
-    StyledTextInput,
-    RightIcon,
-    Colors,
-    StyledButton,
-    ButtonText,
-    MsgBox,
-    ExtraView,
-    ExtraText,
-    TextLink,
-    TextLinkContent
-
-}from './../components/styles';//importing styles
-
-import {View} from 'react-native';
-
-//colors
-const {brand, darkLight, primary} = Colors;
-
-const ResetPassword = () => {
-    const [hidePassword, setHidePassword] = useState(true);
-
-
-    return(
-    <StyledContainer>
-        <StatusBar style="dark" />
-        <InnerContainer>
-            <PageLogo resizeMode="cover" source={require('./../assets/img/img.jpg')} />
-            <PageTitle>Reset Password</PageTitle>
-           {/* <SubTitle>Login from here</SubTitle> */}
-
-            <Formik
-            initialValues={{newPassword:'', confirmPassword: ''}}
-            onSubmit={(values) => {
-                console.log(values);
+    <SafeAreaView style={{ backgroundColor: 'white' }}>
+      <View
+        style={{
+          marginTop: 20,
+          minHeight: Dimensions.get('window').height,
+          marginHorizontal: 10,
+          backgroundColor: 'white',
+        }}>
+        <View style={{ marginBottom: 10 }}>
+          <Image
+            style={{
+              width: 373,
+              height: 280,
+              borderRadius: 30,
+              borderWidth: 10,
             }}
-            >
-            {({handleChange, handleBlur, handleSubmit, values}) => (<StyledFormArea>
-
-                <MyTextInput 
-                
-                label="New Password"
-                icon="lock"
-                placeholder="* * * * * * * * *"
-                placeholderTextColor={darkLight}
-                onChangeText={handleChange('newPassword')}
-                onBlur={handleBlur('newPassword')}
-                value={values.password}
-                secureTextEntry={hidePassword}
-                isPassword={true}
-                hidePassword={hidePassword}
-                setHidePassword={setHidePassword}
-
-                />
-                <MyTextInput 
-                
-                label="Confirm Password"
-                icon="lock"
-                placeholder="* * * * * * * * *"
-                placeholderTextColor={darkLight}
-                onChangeText={handleChange('confirmPassword')}
-                onBlur={handleBlur('confirmPassword')}
-                value={values.password}
-                secureTextEntry={hidePassword}
-                isPassword={true}
-                hidePassword={hidePassword}
-                setHidePassword={setHidePassword}
-
-            />
-            
-                {/* Reset Password Button */}
-                <StyledButton onPress={handleSubmit}>
-                    <ButtonText>Reset Password</ButtonText>
-                </StyledButton>
-            
-                
-            </StyledFormArea>)}
-
-            
-
-            </Formik>
-
-        </InnerContainer>
-    </StyledContainer>
-
-    );
-};
-
-const MyTextInput = ({label, icon, isPassword, hidePassword, setHidePassword, ...props}) =>{
-    return(
+            source={require('../../assets/img/img.jpg')}
+          />
+        </View>
         <View>
-            <LeftIcon>
-                <Octicons name={icon} size={30} color={brand} />
-            </LeftIcon>
-            <StyledInputLabel>{label}</StyledInputLabel>
-            <StyledTextInput {...props} />
-            {isPassword && (
-                /* password visible and hide */
-                <RightIcon onPress={() => setHidePassword(!hidePassword)}>
-                    <Ionicons name={hidePassword ? 'md-eye-off' : 'md-eye'} size={30} color={darkLight}  />
-                </RightIcon>
-            )}
-        </View>);
+          <Hedding style={{fontSize: 30,}}>Reset Password</Hedding>
+        </View>
+        <View>
+          <View style={{ marginBottom: 10 }}>
+            <Text>Verification Code</Text>
+          </View>
+          <ViewTextInput>
+            <TextInput
+              value={tripId}
+              onChangeText={value => setTripId(value)}
+              style={{ paddingLeft: 20 }}
+              placeholder={'Verification Code'}
+            />
+          </ViewTextInput>
+          <View style={{ marginBottom: 10 }}>
+            <Text>New Password</Text>
+          </View>
+          <ViewTextInput>
+            <TextInput
+              value={userId}
+              onChangeText={value => setUserId(value)}
+              style={{ paddingLeft: 20 }}
+              secureTextEntry
+              placeholder={'New Password'}
+            />
+          </ViewTextInput>
+          <View style={{ marginBottom: 10 }}>
+            <Text>Confirm Password</Text>
+          </View>
+          <ViewTextInput>
+            <TextInput
+              value={userId}
+              onChangeText={value => setUserId(value)}
+              style={{ paddingLeft: 20 }}
+              secureTextEntry
+              placeholder={'Confirm Password'}
+            />
+          </ViewTextInput>
+          <Text style={{
+            fontSize: 12,
+            textAlign: 'center',
+            padding: 10,
+          }}>Didn't Recived The Code?<Text style={{ color: 'blue' }}
+            onPress={() => Linking.openURL('http://google.com')}>
+              Click here
+        </Text>
+        <Text>To Send Code Again</Text>
+          </Text>
+          <SubmitButton>Reset Password</SubmitButton>
+        </View>
+      </View>
+    </SafeAreaView>
+  );
 };
 
-export default ResetPassword;
+const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+    padding: 5,
+    alignItems: 'center',
+  },
+  title: {
+    fontSize: 20,
+    marginVertical: 5,
+  },
+  inputContainer: {
+    width: 300,
+    maxWidth: '80%',
+    alignItems: 'center',
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'space-between',
+    paddingHorizontal: 15,
+  },
+  button: {
+    width: 100,
+  },
+  input: {
+    width: 50,
+    textAlign: 'center',
+  },
+});
+
+export default Home;
