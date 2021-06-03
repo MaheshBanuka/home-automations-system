@@ -14,7 +14,7 @@ import SubmitButton from '../../components/SubmitButton';
 import Hedding from '../../components/Hedding';
 import ViewTextInput from '../../components/ViewTextInput';
 
-const Home = props => {
+const login = props => {
   const { navigation } = props;
   const [tripId, setTripId] = useState('');
   const [userId, setUserId] = useState('');
@@ -40,7 +40,7 @@ const Home = props => {
           />
         </View>
         <View>
-          <Hedding style={{fontSize: 30,}}>Welcome!</Hedding>
+          <Hedding style={{ fontSize: 30, }}>Welcome!</Hedding>
         </View>
         <View>
           <View style={{ marginBottom: 10 }}>
@@ -71,17 +71,21 @@ const Home = props => {
             textAlign: 'center',
             padding: 10,
           }}>foget Password?<Text style={{ color: 'blue' }}
-            onPress={() => Linking.openURL('http://google.com')}>
+            onPress={() =>  {
+              navigation.navigate('ResetPassword');
+            }}>
               Click here
         </Text>
           </Text>
           <SubmitButton>Login</SubmitButton>
           <Text style={{
-                fontSize: 12,
-                textAlign: 'center',
-                padding: 10,
-              }}>────────  or  ────────</Text>
-          <SubmitButton>Sign UP</SubmitButton>
+            fontSize: 12,
+            textAlign: 'center',
+            padding: 10,
+          }}>────────  or  ────────</Text>
+          <SubmitButton onPress={() => {
+            navigation.navigate('Signup');
+          }}>Sign UP</SubmitButton>
         </View>
       </View>
     </SafeAreaView>
@@ -118,4 +122,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+export default login;

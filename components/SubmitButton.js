@@ -31,28 +31,3 @@ const styles = StyleSheet.create({
     },
 });
 export default SubmitButton;
-
-
-// import React from 'react';
-// import { Text, StyleSheet, View, TouchableOpacity } from 'react-native';
-
-// const SubmitButton = props => {
-//     return <TouchableOpacity style={{ ...styles.SubmitButton, ...props.style }} 
-//     onPress={props.children}
-//     >
-//         <Text style={{ fontSize: 20 }}>{props.children}</Text>
-//     </TouchableOpacity>;
-// };
-
-// const styles = StyleSheet.create({
-//     SubmitButton: {
-//         height: 40,
-//         borderRadius: 50,
-//         width: '100%',
-//         backgroundColor: '#dc4d4d',
-//         alignItems: 'center',
-//         justifyContent: 'center',
-//         marginBottom: 10,
-//     },
-// });
-// export default SubmitButton;

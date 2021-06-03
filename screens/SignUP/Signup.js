@@ -14,7 +14,7 @@ import SubmitButton from '../../components/SubmitButton';
 import Hedding from '../../components/Hedding';
 import ViewTextInput from '../../components/ViewTextInput';
 
-const Home = props => {
+const Signup = props => {
     const { navigation } = props;
     const [tripId, setTripId] = useState('');
     const [userId, setUserId] = useState('');
@@ -120,7 +120,9 @@ const Home = props => {
                     padding: 10,
                 }}>Already Have Account?
                     <Text style={{ color: 'blue' }}
-                        onPress={() => Linking.openURL('http://google.com')}>
+                        onPress={() => {
+                            navigation.navigate('login');
+                          }}>
                         Login here
                 </Text>
                 </Text>
@@ -159,4 +161,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Home;
+export default Signup;

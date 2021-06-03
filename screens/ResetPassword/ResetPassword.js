@@ -14,7 +14,7 @@ import SubmitButton from '../../components/SubmitButton';
 import Hedding from '../../components/Hedding';
 import ViewTextInput from '../../components/ViewTextInput';
 
-const Home = props => {
+const ResetPassword = props => {
   const { navigation } = props;
   const [tripId, setTripId] = useState('');
   const [userId, setUserId] = useState('');
@@ -125,4 +125,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+export default ResetPassword;
