@@ -9,25 +9,27 @@ import {createStackNavigator} from '@react-navigation/stack';
 import login from './screens/LogIn/login';
 import Signup from './screens/Signup/Signup';
 import Trip from './screens/Trip';
+import Lightonoff from './screens/Lightonoff/Lightonoff';
 import Complete from './screens/Complete';
 import ResetPassword from './screens/ResetPassword/ResetPassword';
+import Dashbord from './screens/Dashbord/Dashbord';
 
 const Stack = createStackNavigator();
 
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={'login'}>
+      <Stack.Navigator initialRouteName={'Lightonoff'}>
         <Stack.Screen
-          name="login"
-          component={login}
+          name="Lightonoff"
+          component={Lightonoff}
           options={{
             headerShown: false,
           }}
         />
         <Stack.Screen
-          name="Trip"
-          component={Trip}
+          name="Dashbord"
+          component={Dashbord}
           options={{
             headerShown: false,
           }}

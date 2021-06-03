@@ -77,7 +77,9 @@ const login = props => {
               Click here
         </Text>
           </Text>
-          <SubmitButton>Login</SubmitButton>
+          <SubmitButton onPress={() => {
+            navigation.navigate('Dashbord');
+          }}>Login</SubmitButton>
           <Text style={{
             fontSize: 12,
             textAlign: 'center',

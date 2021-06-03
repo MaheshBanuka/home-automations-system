@@ -11,6 +11,8 @@ const styles = StyleSheet.create({
   Hedding: {
     textAlign: 'center',
     padding: 10,
+    fontSize: 35,
+    fontWeight: "bold",
   },
 });
 export default Hedding;
