@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, Component } from 'react';
 import {
+    Slider,
     View,
     Text,
     StyleSheet,
@@ -7,10 +8,11 @@ import {
     TouchableOpacity,
     Dimensions,
 } from 'react-native';
+// import Seeker from './../screens/Seeker';
 
 const Trip = props => {
-    const [lightState, setLightState] = useState('Open');
-
+    const [lightState, setLightState] = useState(0);
+    const [gateNo, setGateNo] = useState(0);
     return (
         <SafeAreaView style={{ backgroundColor: 'white' }}>
             <View
@@ -28,6 +30,19 @@ const Trip = props => {
                             marginBottom: 20,
                             marginRight: 5,
                         }}>
+                        <Text style={{ fontSize: 20 }}>Slider Value = {gateNo}</Text>
+
+                        <View>
+                            <Slider
+                                step={1}
+                                minimumValue={0}
+                                maximumValue={100}
+                                minimumTrackTintColor="#009688"
+                                onValueChange={(ChangedValue) => setGateNo(ChangedValue)}
+                                style={{ width: '100%' }}
+                            />
+
+                        </View>
                         <TouchableOpacity
                             onPress={() => setLightState('Open')}
                             style={[

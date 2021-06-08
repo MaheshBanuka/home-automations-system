@@ -10,19 +10,20 @@ import login from './screens/LogIn/login';
 import Signup from './screens/Signup/Signup';
 import Trip from './screens/Trip';
 import Lightonoff from './screens/Lightonoff/Lightonoff';
-import Complete from './screens/Complete';
+import LightPurchase from './screens/LightPurchase';
 import ResetPassword from './screens/ResetPassword/ResetPassword';
 import Dashbord from './screens/Dashbord/Dashbord';
+import Seeker from './screens/Seeker';
 
 const Stack = createStackNavigator();
 
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={'Lightonoff'}>
+      <Stack.Navigator initialRouteName={'LightPurchase'}>
         <Stack.Screen
-          name="Lightonoff"
-          component={Lightonoff}
+          name="LightPurchase"
+          component={LightPurchase}
           options={{
             headerShown: false,
           }}
@@ -37,6 +38,13 @@ const App = () => {
         <Stack.Screen
           name="ResetPassword"
           component={ResetPassword}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="Seeker"
+          component={Seeker}
           options={{
             headerShown: false,
           }}
