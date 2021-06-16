@@ -7,28 +7,23 @@ import {
     SafeAreaView,
     StyleSheet,
     Text,
+    FlatList,
     TextInput,
     Modal
 } from 'react-native';
 import { ModalPicker } from './../components/ModalPicker'
-// import Icon from 'react-native-vector-icons/MaterialIcons';
-import Hedding from './../components/Hedding';
-import bgImage from './../assets/img/light.jpg';
 import DropDownPicker from 'react-native-dropdown-picker';
-
+// import Icon from 'react-native-vector-icons/MaterialIcons';
+import Hedding from '../../components/Hedding';
+import bgImage from './../../assets/img/light.jpg';
+import { Bluetooth } from '@material-ui/icons';
 const LightPurchase = props => {
-    const handlePress = () => false
-    const [qty, setqty] = useState(0);
-    const changeModalVisibility = (bool) => {
-        setModalVisible(bool)
-    }
-    //const [name, setName] = useState('ss');
-    //const [age, setAge] = useState('1');
-    const setData = (option) => {
-        setchooseData(option)
-    }
+    const { navigation, route } = props;
+    // const { name} = route.params;
+    // console.log(name);
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState(null);
+    const [test, setTest] = useState('');
     const [items, setItems] = useState([
         { label: '1', value: 1 },
         { label: '2', value: 2 },
@@ -42,17 +37,19 @@ const LightPurchase = props => {
         { label: '10', value: 10 },
         { label: 'Custom', value: 11 }
     ]);
-    const [count, setcount] = useState(1);
-    const [buttonstate, setbuttonstate] = useState('Next');
-    const nextHandler = () => {   
-         if(count<value){
-            setbuttonstate('add to cart');
-         }
-            setcount(prev => prev + 1);
-            console.log(count);      
-    };
+    const [services, setServices] = useState([
+        {
+            id: '1',
+            name: 'Light Control',
+            Price: '40,000 LKR',
+        },
 
-
+        {
+            id: '2',
+            name: 'Fan Control',
+            Price: '40,000 LKR',
+        },
+    ]);
     return (
         <View style={{ flex: 1 }}>
             <StatusBar translucent backgroundColor="rgba(0,0,0,0)" />
@@ -65,11 +62,26 @@ const LightPurchase = props => {
                         marginHorizontal: 2,
                     }}>
                         {/* <Icon name="arrow-back" size={28} style={{ paddingTop: 0, marginLeft: 5, color: 'white' }} /> */}
-                        <Text style={{ fontSize: 20, fontWeight: 'bold', paddingLeft: -50, color: 'white', paddingTop: 0 }}>Back</Text>
-                        <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 170, color: 'white', paddingTop: 0 }}>Username</Text>
+                        <TouchableOpacity onPress={() => {
+                            navigation.navigate('Dashbord');
+                        }}>
+                            <Text style={{ fontSize: 20, fontWeight: 'bold', paddingLeft: -50, color: 'white', paddingTop: 0 }}>Back</Text>
+                        </TouchableOpacity>
+                        <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 170, color: 'white', paddingTop: 0 }}>banuka</Text>
                         {/* <Icon name="person" size={35} style={{ paddingTop: 0, color: 'white' }} /> */}
                     </View>
+                    <FlatList
+        keyExtractor={(item) => item.id}
+        contentContainerStyle={{paddingBottom: 45}}
+        data={services}
+        renderItem={({ item }) => (
+            
+        <Text style={styles.item}>{item.name}</Text>
+
+        )}
+    />
                     <Hedding style={{ color: 'white', }}>Light On/Off</Hedding>
+                    {/*sub heading and desc*/}
                     <Text style={{ color: 'white', fontSize: 14, justifyContent: 'center', alignItems: 'center', textAlign: 'center', padding: 10 }}>
                         Having an automatic home light control system will let you turn the lights on
                         and off with just a tap of a button. Choose a quanitity and name the features according to your reference .
@@ -77,40 +89,34 @@ const LightPurchase = props => {
                     <View style={styles.extraText}>
                         <Text style={styles.extraTextTo}>────────────────────</Text>
                     </View>
-                    <View
-                        style={{
-                            flexDirection: 'row',
-                            paddingLeft: -15,
-                            alignItems: 'center',
-                        }}>
+
+                    <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white', paddingTop: 80, marginBottom: 10, textAlign: 'left' }}>Put Your Quanitity :</Text>
+
+                    <View>
+                        {/* <Text>Select your quantity = {value}</Text> */}
+                        <DropDownPicker
+                            open={open}
+                            value={value}
+                            items={items}
+                            setOpen={setOpen}
+                            setValue={setValue}
+                            setItems={setItems}
+                            style={styles.dp}
+
+                        />
+                    </View>
+                    {/*      
+                    
+                    <View style={styles.row}>
                         <View style={styles.inputWrap}>
-                            <Text
-                                style={{
-                                    fontSize: 20,
-                                    fontWeight: 'bold',
-                                    color: 'white',
-                                    paddingTop: 30,
-                                    paddingLeft: 20,
-                                    textAlign: 'left'
-                                }}>Put Your Quanitity :{count}</Text>
+                            <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white', paddingTop: 30, paddingLeft: 20, textAlign: 'left' }}>Feature 1 :</Text>
                         </View>
-                        <View style={{ width: 170, paddingTop: 20, }}>
-                            <DropDownPicker
-                                open={open}
-                                value={value}
-                                items={items}
-                                setOpen={setOpen}
-                                setValue={setValue}
-                                setItems={setItems}
-                                // onChangeValue={(value) => {
-                                //      nextHandler();
-                                // }}
-                            />
+                        <View style={styles.inputWrapText}>
+                            <TextInput
+                                style={styles.input}
+                                placeholder='eg. som' />
                         </View>
                     </View>
-
-                    
-
                     <View style={styles.row}>
                         <View style={styles.inputWrap}>
                             <Text style={{ fontSize: 24, fontWeight: 'bold', color: 'white', paddingTop: 10, paddingLeft: 20, textAlign: 'left' }}>Price</Text>
@@ -118,11 +124,11 @@ const LightPurchase = props => {
                         <View style={styles.inputWrapText}>
                             <Text style={{ fontSize: 24, fontWeight: 'bold', color: 'white', paddingTop: 10, paddingLeft: -10, marginRight: 33 }}>48,000LKR</Text>
                         </View>
-                    </View>
+                    </View>*/}
                     <View style={styles.containerButton}>
-                        <TouchableOpacity onPress={() => nextHandler()}>
+                        <TouchableOpacity>
                             <Text style={styles.textButton}>
-                                {buttonstate}
+                                Add to cart
             </Text>
                         </TouchableOpacity>
                     </View>
@@ -131,7 +137,6 @@ const LightPurchase = props => {
         </View>
     );
 }
-
 const styles = StyleSheet.create({
     safecon: {
         alignItems: 'center',
@@ -203,6 +208,8 @@ const styles = StyleSheet.create({
     containerButton: {
         marginTop: 10,
         alignItems: 'center',
+        paddingTop: 30,
+        width: 200,
     },
     textButton: {
         padding: 10,
@@ -210,6 +217,12 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         color: 'white',
         fontWeight: 'bold',
+
+        alignItems: 'center',
+    },
+    dp: {
+        color: 'white',
+        backgroundColor: '#00BFFF',
     }
 });
 export default LightPurchase;

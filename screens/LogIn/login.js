@@ -13,11 +13,51 @@ import {
 import SubmitButton from '../../components/SubmitButton';
 import Hedding from '../../components/Hedding';
 import ViewTextInput from '../../components/ViewTextInput';
+import { async } from 'node-stream-zip';
 
 const login = props => {
   const { navigation } = props;
-  const [tripId, setTripId] = useState('');
-  const [userId, setUserId] = useState('');
+  const [name, setName] = useState('');
+  const [nameu, setNameu] = useState('');
+  const [password, setPassword] = useState('');
+  var details = {
+    'name': name,
+    'password': password
+  };
+  var formBody = [];
+  for (var property in details) {
+    var encodedKey = encodeURIComponent(property);
+    var encodedValue = encodeURIComponent(details[property]);
+    formBody.push(encodedKey + "=" + encodedValue);
+  }
+  let formBodydata = formBody.join("&");
+  const loginHandler = async () => {
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+      body: formBodydata
+    };
+    fetch('http://192.168.8.101:8080/demo_war/login', requestOptions)
+      // .then(response=>console.log(response._bodyBlob))
+      .then(response => response.json())
+      .then(data => {
+        setNameu(data.name)
+        if (data.name === "banuka") {
+          // navigation.navigate('Dashbord');
+          navigation.navigate('Dashbord', {name: name});
+          // navigation.reset({
+          //     index: 0,
+          //     routes: [
+          //       {
+          //         name: 'Trip',
+          //         params: { name },
+          //       },
+          //     ],
+          //   });
+        }
+      })
+      .catch(e => console.log(e))
+  }
   return (
 
     <SafeAreaView style={{ backgroundColor: 'white' }}>
@@ -48,8 +88,8 @@ const login = props => {
           </View>
           <ViewTextInput>
             <TextInput
-              value={tripId}
-              onChangeText={value => setTripId(value)}
+              value={name}
+              onChangeText={value => setName(value)}
               style={{ paddingLeft: 20 }}
               placeholder={'Email Address'}
             />
@@ -59,8 +99,8 @@ const login = props => {
           </View>
           <ViewTextInput>
             <TextInput
-              value={userId}
-              onChangeText={value => setUserId(value)}
+              value={password}
+              onChangeText={value => setPassword(value)}
               style={{ paddingLeft: 20 }}
               secureTextEntry
               placeholder={'Password'}
@@ -71,14 +111,16 @@ const login = props => {
             textAlign: 'center',
             padding: 10,
           }}>foget Password?<Text style={{ color: 'blue' }}
-            onPress={() =>  {
+            onPress={() => {
               navigation.navigate('ResetPassword');
             }}>
               Click here
         </Text>
           </Text>
-          <SubmitButton onPress={() => {
-            navigation.navigate('Dashbord');
+          <SubmitButton onPress={async () => {
+            await loginHandler();
+            // navigation.navigate('Dashbord');
+            // navigation.navigate('Dashbord', {name: name});
           }}>Login</SubmitButton>
           <Text style={{
             fontSize: 12,

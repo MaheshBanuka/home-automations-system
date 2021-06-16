@@ -3,10 +3,8 @@ import {
     View,
     Text,
     StyleSheet,
-    Image,
     SafeAreaView,
     TextInput,
-    Linking,
     Dimensions,
 } from 'react-native';
 
@@ -15,9 +13,44 @@ import Hedding from '../../components/Hedding';
 import ViewTextInput from '../../components/ViewTextInput';
 
 const Signup = props => {
-    const { navigation } = props;
-    const [tripId, setTripId] = useState('');
-    const [userId, setUserId] = useState('');
+    const { navigation, route } = props;
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
+    const [address, setAddress] = useState('');
+    const [password, setPassword] = useState('');
+    const [cpassword, setCpassword] = useState('');
+    var details = {
+        'name': name,
+        'email': email,
+        'phone': phone,
+        'address': address,
+        'password': password
+    };
+    var formBody = [];
+    for (var property in details) {
+        var encodedKey = encodeURIComponent(property);
+        var encodedValue = encodeURIComponent(details[property]);
+        formBody.push(encodedKey + "=" + encodedValue);
+    }
+    let formBodydata = formBody.join("&");
+    const loginHandler = async () => {
+        // console.log(formState.email);
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+            body: formBodydata
+        };
+        fetch('http://192.168.8.102:8080/demo_war/user', requestOptions)
+            // .then(response=>console.log(response._bodyBlob))
+            .then(response => response.json())
+            .then(data => {
+                console.log(data.Response)
+                if (data.Response === "testUser Registerd") {
+                    navigation.navigate('login');
+                }
+            })
+            .catch(e => console.log(e))
+    }
     return (
 
         <SafeAreaView style={{ backgroundColor: 'white' }}>
@@ -36,8 +69,8 @@ const Signup = props => {
                 </View>
                 <ViewTextInput >
                     <TextInput
-                        value={tripId}
-                        onChangeText={value => setTripId(value)}
+                        value={name}
+                        onChangeText={value => setName(value)}
                         style={{ paddingLeft: 20 }}
                         placeholder={'User Name'}
                     />
@@ -47,8 +80,8 @@ const Signup = props => {
                 </View>
                 <ViewTextInput >
                     <TextInput
-                        value={tripId}
-                        onChangeText={value => setTripId(value)}
+                        value={email}
+                        onChangeText={value => setEmail(value)}
                         style={{ paddingLeft: 20 }}
                         placeholder={'Email Address'}
                     />
@@ -58,8 +91,8 @@ const Signup = props => {
                 </View>
                 <ViewTextInput >
                     <TextInput
-                        value={tripId}
-                        onChangeText={value => setTripId(value)}
+                        value={phone}
+                        onChangeText={value => setPhone(value)}
                         style={{ paddingLeft: 20 }}
                         placeholder={'Phone Number'}
                     />
@@ -69,8 +102,8 @@ const Signup = props => {
                 </View>
                 <ViewTextInput >
                     <TextInput
-                        value={tripId}
-                        onChangeText={value => setTripId(value)}
+                        value={address}
+                        onChangeText={value => setAddress(value)}
                         style={{ paddingLeft: 20 }}
                         placeholder={'Address'}
                     />
@@ -80,8 +113,8 @@ const Signup = props => {
                 </View>
                 <ViewTextInput >
                     <TextInput
-                        value={tripId}
-                        onChangeText={value => setTripId(value)}
+                        value={password}
+                        onChangeText={value => setPassword(value)}
                         style={{ paddingLeft: 20 }}
                         placeholder={'Password'}
                     />
@@ -91,29 +124,31 @@ const Signup = props => {
                 </View>
                 <ViewTextInput >
                     <TextInput
-                        value={tripId}
-                        onChangeText={value => setTripId(value)}
+                        value={cpassword}
+                        onChangeText={value => setCpassword(value)}
                         style={{ paddingLeft: 20 }}
                         placeholder={'Confirm Password'}
                     />
                 </ViewTextInput>
                 <SubmitButton
-                    onPress={() => {
-                        console.log('asdasdasd');
-                        navigation.navigate('Trip');
-                        // navigation.reset({
-                        //   index: 0,
-                        //   routes: [
-                        //     {
-                        //       name: 'Trip',
-                        //       params: { tripId, userId },
-                        //     },
-                        //   ],
-                        // });
+                    // onPress={() => {
+                    //     console.log('asdasdasd');
+                    //     navigation.navigate('Trip');
+                    // navigation.reset({
+                    //   index: 0,
+                    //   routes: [
+                    //     {
+                    //       name: 'Trip',
+                    //       params: { tripId, userId },
+                    //     },
+                    //   ],
+                    // });
+                    // }}
+                    onPress={async () => {
+                        await loginHandler();
                     }}
-
                 >Sign Up</SubmitButton>
-                
+
                 <Text style={{
                     fontSize: 12,
                     textAlign: 'center',
@@ -122,7 +157,7 @@ const Signup = props => {
                     <Text style={{ color: 'blue' }}
                         onPress={() => {
                             navigation.navigate('login');
-                          }}>
+                        }}>
                         Login here
                 </Text>
                 </Text>

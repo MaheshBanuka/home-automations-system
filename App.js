@@ -9,8 +9,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import login from './screens/LogIn/login';
 import Signup from './screens/Signup/Signup';
 import Trip from './screens/Trip';
-import Lightonoff from './screens/Lightonoff/Lightonoff';
-import LightPurchase from './screens/LightPurchase';
+import LightPurchase from './screens/LightPurchase/LightPurchase';
 import ResetPassword from './screens/ResetPassword/ResetPassword';
 import Dashbord from './screens/Dashbord/Dashbord';
 import Seeker from './screens/Seeker';
@@ -24,6 +23,13 @@ const App = () => {
         <Stack.Screen
           name="LightPurchase"
           component={LightPurchase}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="login"
+          component={login}
           options={{
             headerShown: false,
           }}
