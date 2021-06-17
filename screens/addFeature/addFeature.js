@@ -7,60 +7,27 @@ import {
     SafeAreaView,
     StyleSheet,
     Text,
-    FlatList,
-    TextInput,
-    Modal
+    TextInput
 } from 'react-native';
-import DropDownPicker from 'react-native-dropdown-picker';
 // import Icon from 'react-native-vector-icons/MaterialIcons';
 import Hedding from '../../components/Hedding';
-import bgImage from './../../assets/img/light.jpg';
-import { Bluetooth } from '@material-ui/icons';
-const LightPurchase = props => {
+import bgImage from '../../assets/img/img3.jpg';
+const addFeature = props => {
     const { navigation, route } = props;
-    const { name, servicenum } = route.params;
-    // const [name,setName] = useState('Banuka');
-    const [open, setOpen] = useState(false);
-    const [value, setValue] = useState(null);
-    const [items, setItems] = useState([
-        { label: '1', value: 1 },
-        { label: '2', value: 2 },
-        { label: '3', value: 3 },
-        { label: '4', value: 4 },
-        { label: '5', value: 5 },
-        { label: '6', value: 6 },
-        { label: '7', value: 7 },
-        { label: '8', value: 8 },
-        { label: '9', value: 9 },
-        { label: '10', value: 10 },
-        { label: 'Custom', value: 11 }
-    ]);
-    const [title, setTitle] = useState('');
-    const [dis, setDis] = useState('');
-    const data = [{
-        title: 'Light On/Off',
-        dis: 'Having an automatic home light control system will let you turn the lights on and off with just a tap of a button. Choose a quanitity and name the features according to your reference .'
-    },
-    {
-        title: 'Light Dimmer',
-        dis: 'fuck'
-    },
-    {
-        title: 'Fan Control',
-        dis: 'fuck'
-    },
-    {
-        title: 'Sensor',
-        dis: 'fuck'
-    },
-    {
-        title: 'Water Tank',
-        dis: 'fuck'
-    }]
-
+    const { value,name } = route.params;
+    const [count, setCount] = useState(1);
+    const [buttonText, setbuttonText] = useState('Add');
+    console.log(value)
+    const nextHandler = () => {
+        if (count < value) {
+            setCount(prev => prev + 1);
+        }
+        else {
+            setbuttonText('Payment')
+        }
+    };
     useEffect(() => {
-        setTitle(data[servicenum].title)
-        setDis(data[servicenum].dis)
+        
     }, [])
     return (
         <View style={{ flex: 1 }}>
@@ -75,40 +42,24 @@ const LightPurchase = props => {
                     }}>
                         {/* <Icon name="arrow-back" size={28} style={{ paddingTop: 0, marginLeft: 5, color: 'white' }} /> */}
                         <TouchableOpacity onPress={() => {
-                            navigation.navigate('Dashbord');
+                            navigation.navigate('LightPurchase');
                         }}>
                             <Text style={{ fontSize: 20, fontWeight: 'bold', paddingLeft: -50, color: 'white', paddingTop: 0 }}>Back</Text>
                         </TouchableOpacity>
                         <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 170, color: 'white', paddingTop: 0 }}>{name}</Text>
                         {/* <Icon name="person" size={35} style={{ paddingTop: 0, color: 'white' }} /> */}
                     </View>
-                    <Hedding style={{ color: 'white', }}>{title}</Hedding>
-                    <Text style={{ color: 'white', fontSize: 14, justifyContent: 'center', alignItems: 'center', textAlign: 'center', padding: 10 }}>
-                        {dis}
+                    <Hedding style={{ color: 'orange', }}>Add Your Feature Name</Hedding>
+                    <Text style={{ color: 'white', fontSize: 16, justifyContent: 'center', alignItems: 'center', textAlign: 'center', padding: 10 }}>
+                        Once you add your feature, press the next button to add next feature as stepwise. Make sure to enter a clear feature name which is not complicated.
                     </Text>
                     <View style={styles.extraText}>
                         <Text style={styles.extraTextTo}>────────────────────</Text>
                     </View>
-
-                    <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white', paddingTop: 80, marginBottom: 10, textAlign: 'left' }}>Put Your Quanitity :</Text>
-
-                    <View>
-                        {/* <Text>Select your quantity = {value}</Text> */}
-                        <DropDownPicker
-                            open={open}
-                            value={value}
-                            items={items}
-                            setOpen={setOpen}
-                            setValue={setValue}
-                            setItems={setItems}
-                            style={styles.dp}
-                        />
-                    </View>
-                    {/*      
-                    
+                    <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white', paddingTop: 10, marginBottom: 10, textAlign: 'left' }}>Add Feature 0{count} Name here :</Text>
                     <View style={styles.row}>
                         <View style={styles.inputWrap}>
-                            <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white', paddingTop: 30, paddingLeft: 20, textAlign: 'left' }}>Feature 1 :</Text>
+                            <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white', paddingTop: 30, paddingLeft: 20, textAlign: 'left' }}>Feature {count} :</Text>
                         </View>
                         <View style={styles.inputWrapText}>
                             <TextInput
@@ -116,21 +67,11 @@ const LightPurchase = props => {
                                 placeholder='eg. som' />
                         </View>
                     </View>
-                    <View style={styles.row}>
-                        <View style={styles.inputWrap}>
-                            <Text style={{ fontSize: 24, fontWeight: 'bold', color: 'white', paddingTop: 10, paddingLeft: 20, textAlign: 'left' }}>Price</Text>
-                        </View>
-                        <View style={styles.inputWrapText}>
-                            <Text style={{ fontSize: 24, fontWeight: 'bold', color: 'white', paddingTop: 10, paddingLeft: -10, marginRight: 33 }}>48,000LKR</Text>
-                        </View>
-                    </View>*/}
                     <View style={styles.containerButton}>
-                        <TouchableOpacity onPress={() => {
-                            navigation.navigate('addFeature', { value: value,name:name });
-                        }}>
+                        <TouchableOpacity onPress={nextHandler}>
                             <Text style={styles.textButton}>
-                                Add to cart
-            </Text>
+                                {buttonText}
+                            </Text>
                         </TouchableOpacity>
                     </View>
                 </SafeAreaView>
@@ -209,24 +150,23 @@ const styles = StyleSheet.create({
     containerButton: {
         marginTop: 10,
         alignItems: 'center',
-        paddingTop: 30,
-        width: 200,
+        alignContent: 'center',
+
+
     },
     textButton: {
         padding: 10,
-        backgroundColor: '#FF8C00',
+        backgroundColor: '#1E90FF',
         borderRadius: 15,
         color: 'white',
         fontWeight: 'bold',
+        width: 200,
+        paddingLeft: 80,
+        fontSize: 20,
 
-        alignItems: 'center',
-    },
-    dp: {
-        color: 'white',
-        backgroundColor: '#00BFFF',
     }
 });
-export default LightPurchase;
+export default addFeature;
 
 
 

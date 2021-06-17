@@ -6,7 +6,8 @@ import bgImage from '../../assets/img/bgi.jpg';
 import Hedding from '../../components/Hedding';
 const Home = props => {
     const { navigation, route } = props;
-    const { name} = route.params;
+    const [name,setName] = useState('Banuka');
+    // const { name} = route.params;
     return (
         
         <View style={{ flex: 1 }}>
@@ -33,20 +34,28 @@ const Home = props => {
                 </SafeAreaView>
                 <ScrollView>
                 <TouchableOpacity onPress={() => {
-                    navigation.navigate('LightPurchase', {name: name});
+                    navigation.navigate('LightPurchase', {name: name,servicenum:0});
                 }}>
                     <Text style={styles.item}>Light On/Off</Text>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => {
+                    navigation.navigate('LightPurchase', {name: name,servicenum:1});
+                }}>
                     <Text style={styles.item}>Light Dimmer</Text>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => {
+                    navigation.navigate('LightPurchase', {name: name,servicenum:2});
+                }}>
                     <Text style={styles.item}>Fan Control</Text>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => {
+                    navigation.navigate('LightPurchase', {name: name,servicenum:3});
+                }}>
                     <Text style={styles.item}>Sensor</Text>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => {
+                    navigation.navigate('LightPurchase', {name: name,servicenum:4});
+                }}>
                     <Text style={styles.item}>Water Tank</Text>
                 </TouchableOpacity>
                 </ScrollView>
