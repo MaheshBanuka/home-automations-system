@@ -26,9 +26,6 @@ const addFeature = props => {
             setbuttonText('Payment')
         }
     };
-    useEffect(() => {
-        
-    }, [])
     return (
         <View style={{ flex: 1 }}>
             <StatusBar translucent backgroundColor="rgba(0,0,0,0)" />

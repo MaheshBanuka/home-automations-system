@@ -49,6 +49,7 @@ const LightPurchase = props => {
                         <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 170, color: 'white', paddingTop: 0 }}>Username</Text>
                         {/* <Icon name="person" size={35} style={{ paddingTop: 0, color: 'white' }} /> */}
                     </View>
+                    
                     <Hedding style={{ color: 'white', }}>Light On/Off</Hedding>
                     <Text style={{ color: 'white', fontSize: 14, justifyContent: 'center', alignItems: 'center', textAlign: 'center', padding: 10 }}>
                         Having an automatic home light control system will let you turn the lights on

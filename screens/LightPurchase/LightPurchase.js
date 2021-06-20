@@ -35,32 +35,32 @@ const LightPurchase = props => {
         { label: '10', value: 10 },
         { label: 'Custom', value: 11 }
     ]);
-    const [title, setTitle] = useState('');
-    const [dis, setDis] = useState('');
     const data = [{
         title: 'Light On/Off',
         dis: 'Having an automatic home light control system will let you turn the lights on and off with just a tap of a button. Choose a quanitity and name the features according to your reference .'
     },
     {
         title: 'Light Dimmer',
-        dis: 'fuck'
+        dis: 'Control your light"s brightness anytime and access variations of your home"s lightning . Control any number of lights you prefer through your fingertips.'
     },
     {
         title: 'Fan Control',
-        dis: 'fuck'
+        dis: 'Feel the wind just the way you want it and access all your fans through fingertips'
     },
     {
         title: 'Sensor',
-        dis: 'fuck'
+        dis: 'Feel afraid? Did anyone get in here? No. Not at all without you knowing. Sense every step within your area just through your fingertips.'
     },
     {
         title: 'Water Tank',
-        dis: 'fuck'
+        dis: 'Don"t give command or be commanded to turn off and on the water tank and no wastage of water again. Control your water tank easily.'
     }]
 
     useEffect(() => {
-        setTitle(data[servicenum].title)
-        setDis(data[servicenum].dis)
+        for (let index = 0; index < 4; index++) {
+            <Hedding style={{ color: 'white', }}>{data[servicenum].title}</Hedding>
+        console.log(data[index].dis)
+        }
     }, [])
     return (
         <View style={{ flex: 1 }}>
@@ -82,9 +82,9 @@ const LightPurchase = props => {
                         <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 170, color: 'white', paddingTop: 0 }}>{name}</Text>
                         {/* <Icon name="person" size={35} style={{ paddingTop: 0, color: 'white' }} /> */}
                     </View>
-                    <Hedding style={{ color: 'white', }}>{title}</Hedding>
+                    <Hedding style={{ color: 'white', }}>{data[servicenum].title}</Hedding>
                     <Text style={{ color: 'white', fontSize: 14, justifyContent: 'center', alignItems: 'center', textAlign: 'center', padding: 10 }}>
-                        {dis}
+                        {data[servicenum].dis}
                     </Text>
                     <View style={styles.extraText}>
                         <Text style={styles.extraTextTo}>────────────────────</Text>
