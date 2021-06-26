@@ -37,12 +37,13 @@ const login = props => {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
       body: formBodydata
     };
-    fetch('http://192.168.8.101:8080/demo_war/login', requestOptions)
+    fetch('http://192.168.8.102:8080/demo_war/login', requestOptions)
       // .then(response=>console.log(response._bodyBlob))
       .then(response => response.json())
       .then(data => {
         setNameu(data.name)
         if (data.name === "banuka") {
+          console.log(data.name);
           // navigation.navigate('Dashbord');
           navigation.navigate('Dashbord', {name: name});
           // navigation.reset({
