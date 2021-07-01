@@ -1,21 +1,22 @@
 import React, { useState } from 'react';
 import {
-    View,
-    ImageBackground,
-    TouchableOpacity,
-    StatusBar,
-    SafeAreaView,
-    StyleSheet,
-    Text,
-    TextInput,
+    View, 
+    ImageBackground, 
+    TouchableOpacity, 
+    StatusBar, 
+    SafeAreaView, 
+    StyleSheet, 
+    Text, 
+    TextInput, 
     Slider,
     Modal
 } from 'react-native';
+
 // import Icon from 'react-native-vector-icons/MaterialIcons';
 import Hedding from '../../components/Hedding';
-import bgImage from '../../assets/img/adminUserManagement.jpg';
-const adminAddService = () => {
-
+import bgImage from '../../assets/img/img4.jpg';
+const getStarted = () => {
+    
     return (
         <View style={{ flex: 1 }}>
             <StatusBar translucent backgroundColor="rgba(0,0,0,0)" />
@@ -27,70 +28,72 @@ const adminAddService = () => {
                         alignItems: 'center',
                         marginHorizontal: 2,
                     }}>
-                        {/* <Icon name="arrow-back" size={28} style={{ paddingTop: 0, marginLeft: 5, color: 'white' }} /> */}
+                        
+                        {/* <Icon name="arrow-back" size={28} style={{ paddingTop: 0, marginLeft: 5, color: 'white' }} /> 
                         <Text style={{ fontSize: 20, fontWeight: 'bold', paddingLeft: -50, color: 'white', paddingTop: 0 }}>Back</Text>
-                        <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 170, color: 'white', paddingTop: 0 }}>Admin</Text>
-                        {/* <Icon name="person" size={35} style={{ paddingTop: 0, color: 'white' }} /> */}
+                        <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 170, color: 'white', paddingTop: 0 }}>Username</Text>
+                         */}
                     </View>
-                    <Hedding style={{ color: 'orange', }}>Service Management</Hedding>
-                    <Text style={{ color: 'white', fontSize: 16, justifyContent: 'center', alignItems: 'center', textAlign: 'center', padding: 10, paddingLeft: 90 }}>
-                        Update Service
+                    <Hedding style={{ color: 'orange',paddingTop:240 }}>Welcome!</Hedding>
+                    {/*sub heading and desc
+                    <Text style={{ color: 'white', fontSize: 16, justifyContent: 'center', alignItems: 'center', textAlign: 'center', padding: 10 }}>
+                        Once you add your feature, press the next button to add next feature as stepwise. Make sure to enter a clear feature name which is not complicated.
+                    </Text>*/}
+                    
+                    
+
+                    <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white', paddingTop: 10, marginBottom: 10, textAlign: 'center' }}>
+                        Get easy access to your home appliances and access them through your fingertips with more comfort.
                     </Text>
 
-                    <View style={styles.extraText}>
-                        <Text style={styles.extraTextTo}>────────────────────</Text>
-                    </View>
-
-
-
-
-
+                   
+                    
+                    
+                    
+                    
+                    {/*
                     <View style={styles.row}>
                         <View style={styles.inputWrap}>
-                            <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white', paddingTop: 30, paddingLeft: 30, textAlign: 'left' }}>Service ID :</Text>
+                            <Text style={{ fontSize: 24, fontWeight: 'bold', color: 'white', paddingTop: 10, paddingLeft: 20, textAlign: 'left' }}>Price</Text>
                         </View>
                         <View style={styles.inputWrapText}>
-                            <TextInput
-                                style={styles.input}
-                            />
+                            <Text style={{ fontSize: 24, fontWeight: 'bold', color: 'white', paddingTop: 10, paddingLeft: -10, marginRight: 33 }}>48,000LKR</Text>
                         </View>
                     </View>
-                    <View style={styles.row}>
-                        <View style={styles.inputWrap}>
-                            <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white', paddingTop: 30, paddingLeft: 30, textAlign: 'left' }}>Service Name :</Text>
-                        </View>
-                        <View style={styles.inputWrapText}>
-                            <TextInput
-                                style={styles.input}
-                            />
-                        </View>
-                    </View>
-                    <View style={styles.row}>
-                        <View style={styles.inputWrap}>
-                            <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white', paddingTop: 30, paddingLeft: 30, textAlign: 'left' }}>Cost  :</Text>
-                        </View>
-                        <View style={styles.inputWrapText}>
-                            <TextInput
-                                style={styles.input}
-                                placeholder='Rs.' />
-                        </View>
-                    </View>
-
+                    */}
                     <View style={styles.containerButton}>
                         <TouchableOpacity>
-                            <Text style={styles.textButtonUpdate}>
-                                Update Services
+                            <Text style={styles.textButton}>
+                                   Get Started
                             </Text>
                         </TouchableOpacity>
-
+                      {/*}  
                     </View>
-                    {/* <View style={styles.containerButtonUpdate}>
+                    <View style={styles.extraText}>
+                        <Text style={styles.extraTextToor}>────────────────────────</Text>
+                    </View>
+                    <View style={styles.containerButtonLoginSign}>
                         <TouchableOpacity>
-                            <Text style={styles.textButtonUpdate}>
-                                   Update Services  
+                            <Text style={styles.textButtonLoginSign}>
+                                   Login
                             </Text>
                         </TouchableOpacity>
-                    </View> */}
+                        
+                    </View>
+                    <View style={styles.extraText}>
+                        <Text style={styles.extraTextTo}>or</Text>
+                    </View>
+                    <View style={styles.containerButtonLoginSign}>
+                        <TouchableOpacity>
+                            <Text style={styles.textButtonLoginSign}>
+                                   Signup
+                            </Text>
+                */}
+                        
+                        
+                    </View>
+
+                   
                 </SafeAreaView>
             </ImageBackground>
         </View>
@@ -153,7 +156,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignContent: 'center',
         color: 'white',
-        fontSize: 25
+        fontSize: 20
     },
     buttonAddToCart: {
         padding: 4,
@@ -168,43 +171,47 @@ const styles = StyleSheet.create({
         marginTop: 10,
         alignItems: 'center',
         alignContent: 'center',
-
-
+       
+       
     },
-    textButtonAdd: {
+    textButton: {
         padding: 10,
         backgroundColor: 'orange',
-        borderRadius: 15,
+        borderRadius: 45,
         color: 'white',
         fontWeight: 'bold',
         width: 200,
-        paddingLeft: 80,
-        fontSize: 20,
-        marginLeft: 170,
-
+        height: 80,
+        paddingLeft: 37,
+        fontSize: 25,
+        paddingTop: 20,
+        
     },
-    containerButtonUpdate: {
-        marginTop: 10,
+    containerButtonLoginSign:{
+       
         alignItems: 'center',
         alignContent: 'center',
-        paddingTop: 160,
-
-
     },
-    textButtonUpdate: {
+    textButtonLoginSign: {
         padding: 10,
         backgroundColor: '#1E90FF',
         borderRadius: 15,
         color: 'white',
         fontWeight: 'bold',
-        width: 270,
-        paddingLeft: 70,
+        width: 300,
+        paddingLeft: 120,
         fontSize: 20,
-        marginLeft: 100,
-
+    },
+    extraTextToor: {
+        justifyContent: 'center',
+        alignContent: 'center',
+        color: 'white',
+        fontSize: 20,
+        paddingBottom: 180,
+        
     }
 });
-export default adminAddService;
+export default getStarted;
 
 
 

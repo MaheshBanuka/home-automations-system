@@ -11,17 +11,12 @@ import {
     Slider,
     Modal
 } from 'react-native';
-import { ModalPicker } from '../../components/ModalPicker'
-import DropDownPicker from 'react-native-dropdown-picker';
 // import Icon from 'react-native-vector-icons/MaterialIcons';
 import Hedding from '../../components/Hedding';
-import bgImage from './../assets/img/adminUserManagement.jpg';
-const adminServiceUpdate = () => {
-    
-    const [lightState, setLightState] = useState(0);
-  const [gateNo, setGateNo] = useState(0);
+import bgImage from '../../assets/img/adminUserManagement.jpg';
+const adminServiceUpdate = props => {
+    const { navigation } = props;
 
-    
     return (
         <View style={{ flex: 1 }}>
             <StatusBar translucent backgroundColor="rgba(0,0,0,0)" />
@@ -39,28 +34,7 @@ const adminServiceUpdate = () => {
                         {/* <Icon name="person" size={35} style={{ paddingTop: 0, color: 'white' }} /> */}
                     </View>
                     <Hedding style={{ color: 'orange', fontWeight: 'bold', fontSize: 40, padding: 30 }}>Service Management</Hedding>
-                    {/*sub heading and desc*/}
-                    
-                    
-                    
-{/*
-                    <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white', paddingTop: 10, marginBottom: 10, textAlign: 'left' }}>Add Feature 01 Name here :</Text>
 
-                */}                          
-                    
-                    {/*
-                    <View style={styles.row}>
-                        <View style={styles.inputWrap}>
-                            <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white', paddingTop: 30, paddingLeft: 20, textAlign: 'left' }}>Feature 1 :</Text>
-                        </View>
-                        <View style={styles.inputWrapText}>
-                            <TextInput
-                                style={styles.input}
-                                placeholder='eg. som' />
-                        </View>
-                    </View>
-                    */}
-                    {/* table header */}
                     <View style={styles.row}>
                         <View style={styles.inputWrap}>
                             <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white', paddingTop: 10, paddingLeft: -30, textAlign: 'center' }}>Existing Services</Text>
@@ -74,15 +48,12 @@ const adminServiceUpdate = () => {
                         
                         
                     </View>
-                   
-                   {/* table header ends */}
 
-                    {/* table body */}
                     <View style={styles.row}>
                         <View style={styles.inputWrap}>
                             <Text style={{ fontSize: 18, color: 'white', paddingTop: 10, paddingRight: 20, textAlign: 'center' }}>1.Light Control</Text>
                         </View>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => {navigation.navigate('adminAddService');}}>
                             <Text style={styles.textButtonupdate}>
                                    Update
                             </Text>

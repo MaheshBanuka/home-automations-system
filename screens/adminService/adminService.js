@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import {
-    View, 
-    ImageBackground, 
-    TouchableOpacity, 
-    StatusBar, 
-    SafeAreaView, 
-    StyleSheet, 
-    Text, 
-    TextInput, 
+    View,
+    ImageBackground,
+    TouchableOpacity,
+    StatusBar,
+    SafeAreaView,
+    StyleSheet,
+    Text,
+    TextInput,
     Slider,
     Modal
 } from 'react-native';
@@ -15,13 +15,10 @@ import { ModalPicker } from '../../components/ModalPicker'
 import DropDownPicker from 'react-native-dropdown-picker';
 // import Icon from 'react-native-vector-icons/MaterialIcons';
 import Hedding from '../../components/Hedding';
-import bgImage from './../assets/img/adminService.jpg';
-const adminService = () => {
-    
-    const [lightState, setLightState] = useState(0);
-  const [gateNo, setGateNo] = useState(0);
+import bgImage from '../../assets/img/adminService.jpg';
+const adminService = props => {
+    const { navigation } = props;
 
-    
     return (
         <View style={{ flex: 1 }}>
             <StatusBar translucent backgroundColor="rgba(0,0,0,0)" />
@@ -38,56 +35,23 @@ const adminService = () => {
                         <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 170, color: 'white', paddingTop: 0 }}>Admin</Text>
                         {/* <Icon name="person" size={35} style={{ paddingTop: 0, color: 'white' }} /> */}
                     </View>
-                    <Hedding style={{ color: 'white', fontSize: 40, fontWeight: 'bold',padding: 40, paddingTop: 150 }}>Service Management</Hedding>
-                    {/*sub heading and desc
-                    <Text style={{ color: 'white', fontSize: 16, justifyContent: 'center', alignItems: 'center', textAlign: 'center', padding: 10 }}>
-                        Once you add your feature, press the next button to add next feature as stepwise. Make sure to enter a clear feature name which is not complicated.
-                    </Text>
-                    
-                    <View style={styles.extraText}>
-                        <Text style={styles.extraTextTo}>────────────────────</Text>
-                    </View>
+                    <Hedding style={{ color: 'white', fontSize: 40, fontWeight: 'bold', padding: 40, paddingTop: 150 }}>Service Management</Hedding>
 
-                    <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white', paddingTop: 10, marginBottom: 10, textAlign: 'left' }}>Add Feature 01 Name here :</Text>
-
-                           
-                    
-                    
-                    <View style={styles.row}>
-                        <View style={styles.inputWrap}>
-                            <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white', paddingTop: 30, paddingLeft: 20, textAlign: 'left' }}>Feature 1 :</Text>
-                        </View>
-                        <View style={styles.inputWrapText}>
-                            <TextInput
-                                style={styles.input}
-                                placeholder='eg. som' />
-                        </View>
-                    </View>
-                    {/*
-                    <View style={styles.row}>
-                        <View style={styles.inputWrap}>
-                            <Text style={{ fontSize: 24, fontWeight: 'bold', color: 'white', paddingTop: 10, paddingLeft: 20, textAlign: 'left' }}>Price</Text>
-                        </View>
-                        <View style={styles.inputWrapText}>
-                            <Text style={{ fontSize: 24, fontWeight: 'bold', color: 'white', paddingTop: 10, paddingLeft: -10, marginRight: 33 }}>48,000LKR</Text>
-                        </View>
-                    </View>
-                    */}
                     <View style={styles.containerButton}>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => { navigation.navigate('Dashbord'); }}>
                             <Text style={styles.textButton}>
-                                   View Existing Services 
+                                View Existing Services
                             </Text>
                         </TouchableOpacity>
-                        
+
                     </View>
                     <View style={styles.containerButton}>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => { navigation.navigate('adminServiceUpdate'); }}>
                             <Text style={styles.textButtonupdate}>
-                                   Update Services  
+                                Update Services
                             </Text>
                         </TouchableOpacity>
-                        
+
                     </View>
                 </SafeAreaView>
             </ImageBackground>
@@ -166,8 +130,8 @@ const styles = StyleSheet.create({
         marginTop: 10,
         alignItems: 'center',
         alignContent: 'center',
-       
-       
+
+
     },
     textButton: {
         padding: 15,
@@ -178,10 +142,10 @@ const styles = StyleSheet.create({
         width: 370,
         paddingLeft: 100,
         fontSize: 20,
-        
+
     },
 
-    textButtonupdate:{
+    textButtonupdate: {
         padding: 15,
         backgroundColor: 'orange',
         borderRadius: 28,

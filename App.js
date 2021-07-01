@@ -17,16 +17,64 @@ import ResetPassword from './screens/ResetPassword/ResetPassword';
 import Dashbord from './screens/Dashbord/Dashbord';
 import Seeker from './screens/Seeker';
 import cart from './screens/cart/cart';
+import adminAddService from './screens/adminAddService/adminAddService';
+import adminService from './screens/adminService/adminService';
+import adminServiceUpdate from './screens/adminServiceUpdate/adminServiceUpdate';
+import adminUserManagement from './screens/adminUserManagement/adminUserManagement';
+import adminWelcome from './screens/adminWelcome/adminWelcome';
+import getStarted from './screens/getStarted/getStarted';
 
 const Stack = createStackNavigator();
 
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={'cart'}>
+      <Stack.Navigator initialRouteName={'getStarted'}>
         <Stack.Screen
           name="LightPurchase"
           component={LightPurchase}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="getStarted"
+          component={getStarted}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="adminWelcome"
+          component={adminWelcome}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="adminUserManagement"
+          component={adminUserManagement}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="adminServiceUpdate"
+          component={adminServiceUpdate}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="adminService"
+          component={adminService}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="adminAddService"
+          component={adminAddService}
           options={{
             headerShown: false,
           }}

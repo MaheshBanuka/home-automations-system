@@ -15,7 +15,7 @@ import { ModalPicker } from '../../components/ModalPicker'
 import DropDownPicker from 'react-native-dropdown-picker';
 // import Icon from 'react-native-vector-icons/MaterialIcons';
 import Hedding from '../../components/Hedding';
-import bgImage from './../assets/img/adminUserManagement.jpg';
+import bgImage from '../../assets/img/adminUserManagement.jpg';
 const adminUserManagement = () => {
     
     const [lightState, setLightState] = useState(0);
