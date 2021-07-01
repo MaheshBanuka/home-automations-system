@@ -6,7 +6,6 @@ import {
   Image,
   SafeAreaView,
   TextInput,
-  Linking,
   Dimensions,
 } from 'react-native';
 
