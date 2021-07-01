@@ -40,7 +40,7 @@ const Signup = props => {
             headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
             body: formBodydata
         };
-        fetch('http://192.168.8.102:8080/demo_war/user', requestOptions)
+        fetch('http://192.168.8.102:8080/demo_war/onoff', requestOptions)
             // .then(response=>console.log(response._bodyBlob))
             .then(response => response.json())
             .then(data => {
