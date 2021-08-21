@@ -35,7 +35,7 @@ const Stack = createStackNavigator();
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={'cart'}>
+      <Stack.Navigator initialRouteName={'login'}>
         <Stack.Screen
           name="LightPurchase"
           component={LightPurchase}

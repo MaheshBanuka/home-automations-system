@@ -7,6 +7,7 @@ import {
     SafeAreaView,
     TouchableOpacity,
     Dimensions,
+    StatusBar,
 } from 'react-native';
 // import Seeker from './../screens/Seeker';
 
@@ -78,6 +79,7 @@ const Trip = props => {
 
     return (
         <SafeAreaView style={{ backgroundColor: 'white' }}>
+        <StatusBar translucent backgroundColor="rgba(0,0,0,0)" />
             <View
                 style={{
                     marginTop: 20,

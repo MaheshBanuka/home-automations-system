@@ -25,10 +25,8 @@ const Home = props => {
 
         console.log("dffd");
         for (let i = 0; i < number; i++) {
-
-
             tempList.push(
-                <TouchableOpacity onPress={() => console.log('pressed index--',i)}>
+                <TouchableOpacity key={i} onPress={() => console.log('pressed index--',i)}>
                 <Text key={i} style={[{fontSize:30,color:'white'}]}>{i}</Text>
                 </TouchableOpacity>
             )

@@ -22,7 +22,8 @@
     "react-native-modal-dropdown": "github:siemiatj/react-native-modal-dropdown",
     "react-native-safe-area-context": "^3.2.0",
     "react-native-screens": "^3.2.0",
-    "styled-components": "^5.3.0"
+    "styled-components": "^5.3.0",
+    "@payhere/payhere-mobilesdk-reactnative": "1.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

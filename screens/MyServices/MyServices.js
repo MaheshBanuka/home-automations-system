@@ -6,43 +6,36 @@ import bgImage from '../../assets/img/bgi.jpg';
 import Hedding from '../../components/Hedding';
 const Home = props => {
     const { navigation, route } = props;
-    const { name} = route.params;
+    const { name,servicenames,serviceqty} = route.params;
     const [servicenametemp, setServicenametemp] = useState([])
-    const [serviceqty, setserviceqty] = useState([])
-    const cartdata = async () => {
-        var details = {
-            'name': name
-        };
-        var formBody = [];
-        for (var property in details) {
-            var encodedKey = encodeURIComponent(property);
-            var encodedValue = encodeURIComponent(details[property]);
-            formBody.push(encodedKey + "=" + encodedValue);
-        }
-        let formBodydata = formBody.join("&");
-        console.log("done");
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
-            body: formBodydata
-        };
-        fetch('http://192.168.8.101:8080/demo_war/viewcart', requestOptions)
-            // .then(response=>console.log(response._bodyBlob))
-            .then(response => response.json())
-            .then(data => {
-                //  servicenametemp = JSON.parse(data.servicenames)
-                setServicenametemp(JSON.parse(data.servicenames));
-                // console.log(servicenametemp);
-                setserviceqty(JSON.parse(data.serviceqty));
-                if (data.name === "banuka") {
-                    console.log(data.name);
-                }
-            })
-            .catch(e => console.log(e))
-    }
-    React.useEffect(() => {
-        cartdata()
-    }, [])
+    // const [serviceqty, setserviceqty] = useState([])
+    // const cartdata = async () => {
+    //     var details = {
+    //         'name': name
+    //     };
+    //     var formBody = [];
+    //     for (var property in details) {
+    //         var encodedKey = encodeURIComponent(property);
+    //         var encodedValue = encodeURIComponent(details[property]);
+    //         formBody.push(encodedKey + "=" + encodedValue);
+    //     }
+    //     let formBodydata = formBody.join("&");
+    //     console.log("done");
+    //     const requestOptions = {
+    //         method: 'POST',
+    //         headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+    //         body: formBodydata
+    //     };
+    //     fetch('http://192.168.8.101:8080/demo_war/myser', requestOptions)
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             // setServicenametemp(JSON.parse(data.servicenames));
+    //         })
+    //         .catch(e => console.log(e))
+    // }
+    // React.useEffect(() => {
+    //     // cartdata()
+    // }, [])
     return (
         <View style={{ flex: 1 }}>
             <StatusBar translucent backgroundColor="rgba(0,0,0,0)" />
@@ -68,19 +61,21 @@ const Home = props => {
                         {/* {displayNumber(6)} */}
                 </SafeAreaView>
                 <ScrollView>
-                    {servicenametemp.map((item, index) => {
+                    {servicenames.map((item, index) => {
                         return <TouchableOpacity key={index} onPress={() => {
                             if (item === "Light On/Off") {
-                                navigation.navigate('BrightnessControl', { name: name, serviceqty: serviceqty, index: index });
+                                navigation.navigate('LightBrightness', { name: name, serviceqty: serviceqty[index], index: index });
                             }
                             else if (item === "Light Dimmer") {
-                                navigation.navigate('LightBrightness', { name: name, serviceqty: serviceqty, index: index });
+                                navigation.navigate('LightBrightness', { name: name, serviceqty: serviceqty[index], index: index });
+                                
                             }
                             else if (item === "Fan Controll") {
-                                navigation.navigate('FanControl', { name: name, serviceqty: serviceqty, index: index });
+                                navigation.navigate('FanControl', { name: name, serviceqty: serviceqty[index], index: index });
                             }
                             else if (item === "Door Lock/Unlock") {
-                                navigation.navigate('DoorControl', { name: name, serviceqty: serviceqty, index: index });
+                                navigation.navigate('DoorControl', { name: name, serviceqty: serviceqty[index], index: index });
+                                console.log(serviceqty[index])
                             }
                         }}>
                             <Text style={styles.item}>{item}</Text>

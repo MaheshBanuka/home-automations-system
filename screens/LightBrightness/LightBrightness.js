@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import {
-    View, 
-    ImageBackground, 
-    TouchableOpacity, 
-    StatusBar, 
-    SafeAreaView, 
-    StyleSheet, 
-    Text, 
-    TextInput, 
+    View,
+    ImageBackground,
+    TouchableOpacity,
+    StatusBar,
+    SafeAreaView,
+    StyleSheet,
+    Text,
+    TextInput,
     Slider,
     Modal
 } from 'react-native';
@@ -19,68 +19,115 @@ import bgImage from '../../assets/img/adminUserManagement.jpg';
 const LightBrightness = props => {
     const { navigation, route } = props;
     const { name, serviceqty, index } = route.params;
+    
+    // const name = 'banuka';
     const [lightState, setLightState] = useState(0);
     const [gateNo, setGateNo] = useState(0);
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState(null);
-    console.log(serviceqty);
     const lightdim = async (id) => {
         var details = {
             'id': id,
             'value': "dim"
-          };
-          var formBody = [];
-          for (var property in details) {
+        };
+        var formBody = [];
+        for (var property in details) {
             var encodedKey = encodeURIComponent(property);
             var encodedValue = encodeURIComponent(details[property]);
             formBody.push(encodedKey + "=" + encodedValue);
-          }
-          let formBodydata = formBody.join("&");
-          console.log("pressed");
+        }
+        let formBodydata = formBody.join("&");
+        console.log("pressed");
         const requestOptions = {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
-          body: formBodydata
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+            body: formBodydata
         };
         fetch('http://192.168.8.101:8080/demo_war/onoff', requestOptions)
-        // .then(response=>console.log(response._bodyBlob))
-        .then(response => response.json())
-        .then(data => {
-          if (data.name === "banuka") {
-            console.log(data.name);
-          }
-        })
-        .catch(e => console.log(e))
-      }
+            // .then(response=>console.log(response._bodyBlob))
+            .then(response => response.json())
+            .then(data => {
+                if (data.name === "banuka") {
+                    console.log(data.name);
+                }
+            })
+            .catch(e => console.log(e))
+    }
 
-      const lightldim = async (id) => {
+    const lightldim = async (id) => {
         var details = {
             'id': id,
             'value': "ldim"
-          };
-          var formBody = [];
-          for (var property in details) {
+        };
+        var formBody = [];
+        for (var property in details) {
             var encodedKey = encodeURIComponent(property);
             var encodedValue = encodeURIComponent(details[property]);
             formBody.push(encodedKey + "=" + encodedValue);
-          }
-          let formBodydata = formBody.join("&");
-          console.log("pressed");
+        }
+        let formBodydata = formBody.join("&");
+        console.log("pressed");
         const requestOptions = {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
-          body: formBodydata
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+            body: formBodydata
         };
         fetch('http://192.168.8.101:8080/demo_war/onoff', requestOptions)
-        // .then(response=>console.log(response._bodyBlob))
-        .then(response => response.json())
-        .then(data => {
-          if (data.name === "banuka") {
-            console.log(data.name);
-          }
-        })
-        .catch(e => console.log(e))
-      }
+            // .then(response=>console.log(response._bodyBlob))
+            .then(response => response.json())
+            .then(data => {
+                if (data.name === "banuka") {
+                    console.log(data.name);
+                }
+            })
+            .catch(e => console.log(e))
+    }
+
+    const displayNumber = (number) => {
+        console.log(serviceqty)
+        let tempList = []
+        for (let i = 0; i < number; i++) {
+            tempList.push(
+                <View key = {i+6}>
+                <Text style={{ fontSize: 20, color: 'white', fontWeight: 'bold' }}>Brightness Level = {gateNo}</Text>
+
+                <View key={i+1} style={{ flexDirection: 'row' }}>
+                        <View key={i+2}
+                            style={{
+                                width: '100%',
+                                flex: 1,
+                                marginBottom: 20,
+                                marginRight: 5,
+                            }}>
+                            <TouchableOpacity key={i+3}
+                                onPress={() => lightdim(i)}
+                                style={[
+                                    styles.btn,
+                                    lightState === 'Close' ? styles.btnActivate : null,
+                                ]}>
+                                <Text style={{ fontSize: 20 }}>Up</Text>
+                            </TouchableOpacity>
+
+                        </View>
+                        <View key={i+4}
+                            style={{ width: '100%', flex: 1, marginBottom: 20, marginLeft: 5 }}>
+                            <TouchableOpacity key={i+5}
+                                onPress={() => lightldim(i)}
+                                style={[
+                                    styles.btn,
+                                    lightState === 'Close' ? styles.btnActivate : null,
+                                ]}>
+                                <Text style={{ fontSize: 20 }}>Down</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                    </View>
+            )
+        }
+        return tempList;
+    }
+
+    
     return (
         <View style={{ flex: 1 }}>
             <StatusBar translucent backgroundColor="rgba(0,0,0,0)" />
@@ -99,7 +146,7 @@ const LightBrightness = props => {
                     </View>
                     <Hedding style={{ color: 'white', }}>Light Brightenss Control</Hedding>
                     {/*sub heading and desc*/}
-                    
+
                     <View style={styles.extraText}>
                         <Text style={styles.extraTextTo}>────────────────────</Text>
                     </View>
@@ -107,15 +154,15 @@ const LightBrightness = props => {
                     {/*<Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white', paddingTop: 10, marginBottom: 10, textAlign: 'left' }}>Control your lights here</Text>
                     */}
                     <TouchableOpacity>
-                            <Text style={styles.textButtonshop}>
-                                   Edit Feature  
+                        <Text style={styles.textButtonshop}>
+                            Edit Feature
                             </Text>
-                        </TouchableOpacity>
-                           
-                        <Text style={{ fontSize: 25, fontWeight: 'bold', color: 'white', paddingTop: 10,paddingBottom: 20, marginBottom: 10, textAlign: 'left' }}>Room 1</Text>
+                    </TouchableOpacity>
 
-                        <Text style={{ fontSize: 20, color: 'white', fontWeight: 'bold' }}>Brightness Level = {gateNo}</Text>
-                        <View>
+                    <Text style={{ fontSize: 25, fontWeight: 'bold', color: 'white', paddingTop: 10, paddingBottom: 20, marginBottom: 10, textAlign: 'left' }}>Room 1</Text>
+
+                    
+                    {/* <View>
                         <Slider
                             step={1}
                             minimumValue={0}
@@ -124,40 +171,8 @@ const LightBrightness = props => {
                             onValueChange={(ChangedValue) => setGateNo(ChangedValue)}
                             style={styles.slider}
                         />
-                        </View>
-                        <View style={{ flexDirection: 'row' }}>
-                    <View
-                        style={{
-                            width: '100%',
-                            flex: 1,
-                            marginBottom: 20,
-                            marginRight: 5,
-                        }}>
-                        <TouchableOpacity
-                            onPress={() => lightdim(6)}
-                            style={[
-                                styles.btn,
-                                lightState === 'Close' ? styles.btnActivate : null,
-                            ]}>
-                            <Text style={{ fontSize: 20 }}>Up</Text>
-                        </TouchableOpacity>
-                        
-                    </View>
-                    <View
-                        style={{ width: '100%', flex: 1, marginBottom: 20, marginLeft: 5 }}>
-                        <TouchableOpacity
-                            onPress={() => lightldim(6)}
-                            style={[
-                                styles.btn,
-                                lightState === 'Close' ? styles.btnActivate : null,
-                            ]}>
-                            <Text style={{ fontSize: 20 }}>Down</Text>
-                        </TouchableOpacity>
-                    </View>
-                    </View>
-                        
-                        
-                  
+                        </View> */}
+                    {displayNumber(serviceqty)}
 
                     {/*}
                     <View style={styles.containerButton}>
@@ -253,7 +268,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
 
-    slider:{
+    slider: {
 
         width: 200,
         color: 'white',
@@ -263,37 +278,37 @@ const styles = StyleSheet.create({
 
     btnActivate: {
         backgroundColor: '#FF8C00',
-      },
+    },
 
     btnInactive: {},
-  title: {
-    fontSize: 20,
-    marginVertical: 5,
-  },
-  btn: {
-    height: 40,
-    borderRadius: 50,
-    width: '100%',
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 20,
-    elevation: 3,
-    
-  },
-  textButtonshop: {
-    padding: 10,
-    backgroundColor: 'orange',
-    borderRadius: 15,
-    color: 'white',
-    fontWeight: 'bold',
-    
-    width: 130,
-    fontSize: 20,
-    margin: 20,
-   
-    
-},
+    title: {
+        fontSize: 20,
+        marginVertical: 5,
+    },
+    btn: {
+        height: 40,
+        borderRadius: 50,
+        width: '100%',
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 20,
+        elevation: 3,
+
+    },
+    textButtonshop: {
+        padding: 10,
+        backgroundColor: 'orange',
+        borderRadius: 15,
+        color: 'white',
+        fontWeight: 'bold',
+
+        width: 130,
+        fontSize: 20,
+        margin: 20,
+
+
+    },
 });
 export default LightBrightness;
 

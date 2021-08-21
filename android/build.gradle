@@ -33,6 +33,10 @@ allprojects {
 
         google()
         jcenter()
+        maven {
+            url  "https://repo.repsy.io/mvn/payhere/payhere-mobilesdk-android/"
+        }
         maven { url 'https://www.jitpack.io' }
     }
+    
 }
