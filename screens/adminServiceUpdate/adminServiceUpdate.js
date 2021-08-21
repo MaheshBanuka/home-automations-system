@@ -41,11 +41,7 @@ const adminServiceUpdate = props => {
                         </View>
                         <View style={styles.inputWrap}>
                             <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white', paddingTop: 10, paddingLeft: 60, textAlign: 'center' }}>Actions</Text>
-                        </View>
-                       
-                        
-                        
-                        
+                        </View>    
                         
                     </View>
 

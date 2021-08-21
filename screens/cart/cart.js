@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import {
-    View, 
-    ImageBackground, 
-    TouchableOpacity, 
-    StatusBar, 
-    SafeAreaView, 
-    StyleSheet, 
-    Text, 
-    TextInput, 
+    View,
+    ImageBackground,
+    TouchableOpacity,
+    StatusBar,
+    SafeAreaView,
+    StyleSheet,
+    Text,
+    TextInput,
     Slider,
     Modal
 } from 'react-native';
@@ -16,12 +16,53 @@ import DropDownPicker from 'react-native-dropdown-picker';
 // import Icon from 'react-native-vector-icons/MaterialIcons';
 import Hedding from '../../components/Hedding';
 import bgImage from '../../assets/img/img5.jpg';
-const cart = () => {
-    
-    const [lightState, setLightState] = useState(0);
-  const [gateNo, setGateNo] = useState(0);
+const cart = props => {
+    const { navigation, route } = props;
+    // const { name } = route.params;
+    const name = 'banuka';
+    const [servicenametemp, setServicenametemp] = useState([])
+    const [serviceqty, setserviceqty] = useState([])
+    const [price, setprice] = useState([4000,2000,1000,5000])
+    let tot = 0;
+    // const [subtot, setsubtot] = useState()
+    const cartdata = async () => {
 
-    
+        var details = {
+            'name': name
+        };
+        var formBody = [];
+        for (var property in details) {
+            var encodedKey = encodeURIComponent(property);
+            var encodedValue = encodeURIComponent(details[property]);
+            formBody.push(encodedKey + "=" + encodedValue);
+        }
+        let formBodydata = formBody.join("&");
+        console.log("done");
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+            body: formBodydata
+        };
+        fetch('http://192.168.8.101:8080/demo_war/viewcart', requestOptions)
+            // .then(response=>console.log(response._bodyBlob))
+            .then(response => response.json())
+            .then(data => {
+                //  servicenametemp = JSON.parse(data.servicenames)
+                setServicenametemp(JSON.parse(data.servicenames));
+                // console.log(data.servicenametemp);
+                setserviceqty(JSON.parse(data.serviceqty));
+                if (data.name === "banuka") {
+                    console.log(data.name);
+                }
+            })
+            .catch(e => console.log(e))
+            
+
+    }
+    React.useEffect(() => {
+        cartdata()
+    }, [])
+
     return (
         <View style={{ flex: 1 }}>
             <StatusBar translucent backgroundColor="rgba(0,0,0,0)" />
@@ -39,28 +80,6 @@ const cart = () => {
                         {/* <Icon name="person" size={35} style={{ paddingTop: 0, color: 'white' }} /> */}
                     </View>
                     <Hedding style={{ color: 'orange', fontWeight: 'bold', fontSize: 40 }}>Cart</Hedding>
-                    {/*sub heading and desc*/}
-                    
-                    
-                    
-{/*
-                    <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white', paddingTop: 10, marginBottom: 10, textAlign: 'left' }}>Add Feature 01 Name here :</Text>
-
-                */}                          
-                    
-                    {/*
-                    <View style={styles.row}>
-                        <View style={styles.inputWrap}>
-                            <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white', paddingTop: 30, paddingLeft: 20, textAlign: 'left' }}>Feature 1 :</Text>
-                        </View>
-                        <View style={styles.inputWrapText}>
-                            <TextInput
-                                style={styles.input}
-                                placeholder='eg. som' />
-                        </View>
-                    </View>
-                    */}
-                    {/* table header */}
                     <View style={styles.row}>
                         <View style={styles.inputWrap}>
                             <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white', paddingTop: 10, paddingLeft: 20, textAlign: 'center' }}>Item</Text>
@@ -71,50 +90,59 @@ const cart = () => {
                         <View style={styles.inputWrap}>
                             <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white', paddingTop: 10, paddingLeft: 20, textAlign: 'center' }}>Price</Text>
                         </View>
-                        
-                        
-                        
-                        
                     </View>
-                   
-                   {/* table header ends */}
-
-                    {/* table body */}
                     <View style={styles.row}>
                         <View style={styles.inputWrap}>
-                            <Text style={{ fontSize: 18, color: 'white', paddingTop: 10, paddingLeft: 20, textAlign: 'center' }}>Light Control</Text>
-                        </View>
-                        <View style={styles.inputWrap}>
-                            <Text style={{ fontSize: 18, color: 'white', paddingTop: 10, paddingLeft: 20, textAlign: 'center' }}>4</Text>
-                        </View>
-                        <View style={styles.inputWrap}>
-                            <Text style={{ fontSize: 18, color: 'white', paddingTop: 10, paddingLeft: 20, textAlign: 'center' }}>88,000LKR</Text>
-                        </View>
-                        
-                    
-                    </View>
-                   {/* table body ends */}
+                            {servicenametemp.map((item, index) => {
+                                // console.log(item, index)
+                                return (<Text key={index} style={{ fontSize: 18, color: 'white', paddingTop: 10, paddingLeft: 20, textAlign: 'center' }}>{item}</Text>)
 
-                   {/* table body */}
-                   <View style={styles.row}>
-                        
+                            })}
+                        </View>
+                        <View style={styles.inputWrap}>
+                            {serviceqty.map((item, index) => {
+                                // console.log(item, index)
+                                // setsubtot(item*4000)
+                                // console.log(subtot)
+                                return (<Text key={index} style={{ fontSize: 18, color: 'white', paddingTop: 10, paddingLeft: 20, textAlign: 'center' }}>{item}</Text>)
+
+                            })}
+                        </View>
+                        <View style={styles.inputWrap}>
+                        {serviceqty.map((item, index) => {
+
+                                // console.log(item, index)
+                                // setsubtot(item*4000)
+                                // console.log(subtot)
+                                tot=tot+item*price[index]
+                                return (<Text key={index} style={{ fontSize: 18, color: 'white', paddingTop: 10, paddingLeft: 20, textAlign: 'center' }}>{item*price[index]}</Text>)
+
+                            })}
+                            {/* <Text style={{ fontSize: 18, color: 'white', paddingTop: 10, paddingLeft: 20, textAlign: 'center' }}>88,000LKR</Text> */}
+                            {/* <Text style={{ fontSize: 18, color: 'white', paddingTop: 10, paddingLeft: 20, textAlign: 'center' }}>88,000LKR</Text> */}
+                        </View>
+
+
+                    </View>
+                    <View style={styles.row}>
+
                         <TouchableOpacity>
                             <Text style={styles.textButtonupdate}>
-                                   Update 
+                                Update
                             </Text>
                         </TouchableOpacity>
-                        
-                       
-                            <TouchableOpacity>
-                                <Text style={styles.textButtonremove}>
-                                   Remove  
+
+
+                        <TouchableOpacity>
+                            <Text style={styles.textButtonremove}>
+                                Remove
                                 </Text>
-                            </TouchableOpacity>
-                            
-                        
-                        
+                        </TouchableOpacity>
+
+
+
                     </View>
-                   {/* table body ends */}
+                    {/* table body ends */}
 
                     <View style={styles.extraText}>
                         <Text style={styles.extraTextTotwo}>────────────────────</Text>
@@ -122,29 +150,29 @@ const cart = () => {
 
                     <View style={styles.row}>
                         <View style={styles.inputWrap}>
-                            <Text style={{ fontSize: 24, color: 'silver',fontWeight: 'bold', paddingTop: 10, paddingLeft: 20, textAlign: 'left' }}>Sub Total</Text>
+                            <Text style={{ fontSize: 24, color: 'silver', fontWeight: 'bold', paddingTop: 10, paddingLeft: 20, textAlign: 'left' }}>Sub Total</Text>
                         </View>
-                        
+
                         <View style={styles.inputWrapText}>
-                            <Text style={{ fontSize: 24, color: 'silver',fontWeight: 'bold', paddingTop: 10, marginRight: 20 }}>88,000LKR</Text>
+                            <Text style={{ fontSize: 24, color: 'silver', fontWeight: 'bold', paddingTop: 10, marginRight: 20 }}>LKR{tot}</Text>
                         </View>
                     </View>
-                   
+
                     <View style={styles.containerButton}>
                         <TouchableOpacity>
                             <Text style={styles.textButtonshop}>
-                                   Continue shopping  
+                                Continue shopping
                             </Text>
                         </TouchableOpacity>
-                        
+
                     </View>
                     <View style={styles.containerButton}>
                         <TouchableOpacity>
                             <Text style={styles.textButtoncheckout}>
-                                   Checkout  
+                                Checkout
                             </Text>
                         </TouchableOpacity>
-                        
+
                     </View>
                 </SafeAreaView>
             </ImageBackground>
@@ -213,12 +241,12 @@ const styles = StyleSheet.create({
     },
     extraTextTotwo: {
         justifyContent: 'center',
-         alignContent: 'center',
+        alignContent: 'center',
         color: 'white',
         fontSize: 25,
         fontWeight: 'bold',
 
-        
+
     },
     buttonAddToCart: {
         padding: 4,
@@ -231,7 +259,7 @@ const styles = StyleSheet.create({
     },
     containerButton: {
         marginTop: 10,
-       
+
     },
     textButtonshop: {
         padding: 10,
@@ -242,8 +270,8 @@ const styles = StyleSheet.create({
         marginLeft: 200,
         width: 190,
         fontSize: 20,
-       
-        
+
+
     },
     textButtoncheckout: {
         padding: 10,
@@ -254,7 +282,7 @@ const styles = StyleSheet.create({
         marginLeft: 275,
         width: 107,
         fontSize: 20,
-        
+
     },
     textButtonupdate: {
         padding: 10,
@@ -263,7 +291,7 @@ const styles = StyleSheet.create({
         color: 'white',
         fontWeight: 'bold',
         justifyContent: 'center',
-        margin: 10,  
+        margin: 10,
         fontSize: 15,
     },
     textButtonremove: {
@@ -271,11 +299,11 @@ const styles = StyleSheet.create({
         backgroundColor: '#FF0000',
         borderRadius: 15,
         color: 'white',
-        margin: 10,   
+        margin: 10,
         fontWeight: 'bold',
         justifyContent: 'center',
-        
-       
+
+
         fontSize: 15,
     },
 

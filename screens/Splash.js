@@ -9,9 +9,9 @@ import {
   Dimensions,
 } from 'react-native';
 
-import SubmitButton from '../../components/SubmitButton';
-import Hedding from '../../components/Hedding';
-import ViewTextInput from '../../components/ViewTextInput';
+import SubmitButton from './../components/SubmitButton';
+import Hedding from './../components/Hedding';
+import ViewTextInput from './../components/ViewTextInput';
 import { async } from 'node-stream-zip';
 
 const login = props => {
@@ -36,7 +36,7 @@ const login = props => {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
       body: formBodydata
     };
-    fetch('http://192.168.8.101:8080/demo_war/login', requestOptions)
+    fetch('http://192.168.8.102:8080/demo_war/login', requestOptions)
       // .then(response=>console.log(response._bodyBlob))
       .then(response => response.json())
       .then(data => {
@@ -83,7 +83,7 @@ const login = props => {
               borderRadius: 30,
               borderWidth: 10,
             }}
-            source={require('../../assets/img/img.jpg')}
+            source={require('./../assets/img/img.jpg')}
           />
         </View>
         <View>

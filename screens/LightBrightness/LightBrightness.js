@@ -1,32 +1,33 @@
 import React, { useState } from 'react';
 import {
-    View,
-    ImageBackground,
-    TouchableOpacity,
-    StatusBar,
-    SafeAreaView,
-    StyleSheet,
-    Text,
-    ScrollView,
-    Slider
+    View, 
+    ImageBackground, 
+    TouchableOpacity, 
+    StatusBar, 
+    SafeAreaView, 
+    StyleSheet, 
+    Text, 
+    TextInput, 
+    Slider,
+    Modal
 } from 'react-native';
+import { ModalPicker } from './../components/ModalPicker'
+import DropDownPicker from 'react-native-dropdown-picker';
 // import Icon from 'react-native-vector-icons/MaterialIcons';
 import Hedding from '../../components/Hedding';
-import bgImage from '../../assets/img/light.jpg';
-
-const BrightnessControl = props => {
+import bgImage from '../../assets/img/adminUserManagement.jpg';
+const LightBrightness = props => {
     const { navigation, route } = props;
+    const { name, serviceqty, index } = route.params;
     const [lightState, setLightState] = useState(0);
     const [gateNo, setGateNo] = useState(0);
     const [open, setOpen] = useState(false);
-    // const { name, serviceqty, index } = route.params;
     const [value, setValue] = useState(null);
-    // console.log(serviceqty[index]);
-    
-      const lighton = async (id) => {
+    console.log(serviceqty);
+    const lightdim = async (id) => {
         var details = {
             'id': id,
-            'value': "On_D"
+            'value': "dim"
           };
           var formBody = [];
           for (var property in details) {
@@ -52,10 +53,10 @@ const BrightnessControl = props => {
         .catch(e => console.log(e))
       }
 
-      const lightoff = async (id) => {
+      const lightldim = async (id) => {
         var details = {
             'id': id,
-            'value': "Off_D"
+            'value': "ldim"
           };
           var formBody = [];
           for (var property in details) {
@@ -80,39 +81,6 @@ const BrightnessControl = props => {
         })
         .catch(e => console.log(e))
       }
-
-      const displayNumber = (number) => {
-
-        let tempList = []
-
-        console.log("dffd");
-        for (let i = 0; i < number; i++) {
-            tempList.push(
-                <TouchableOpacity onPress={() => console.log('pressed index--',i)}>
-                {/* <TouchableOpacity
-                            onPress={() => lighton(1)}
-                            style={[
-                                styles.btn,
-                                lightState === 'Close' ? styles.btnActivate : null,
-                            ]}>
-                            <Text style={{ fontSize: 20 }}>ON</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => lightoff(1)}
-                            style={[
-                                styles.btn,
-                                lightState === 'Close' ? styles.btnActivate : null,
-                            ]}>
-                            <Text style={{ fontSize: 20 }}>OFF</Text>
-                        </TouchableOpacity> */}
-                <Text  style={[{fontSize:30,color:'white'}]}>{i}</Text>
-                </TouchableOpacity>
-            )
-        }
-
-
-        return tempList;
-    }
     return (
         <View style={{ flex: 1 }}>
             <StatusBar translucent backgroundColor="rgba(0,0,0,0)" />
@@ -129,13 +97,35 @@ const BrightnessControl = props => {
                         <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 170, color: 'white', paddingTop: 0 }}>Username</Text>
                         {/* <Icon name="person" size={35} style={{ paddingTop: 0, color: 'white' }} /> */}
                     </View>
-                    <Hedding style={{ color: 'white', }}>Light Control</Hedding>
+                    <Hedding style={{ color: 'white', }}>Light Brightenss Control</Hedding>
+                    {/*sub heading and desc*/}
+                    
                     <View style={styles.extraText}>
                         <Text style={styles.extraTextTo}>────────────────────</Text>
                     </View>
-                    {/* {serviceqty[index].map } */}
-                    <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white', paddingTop: 10, paddingBottom: 20, marginBottom: 10, textAlign: 'left' }}>On Off Lights</Text>
-                    <View style={{ flexDirection: 'row' }}>
+
+                    {/*<Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white', paddingTop: 10, marginBottom: 10, textAlign: 'left' }}>Control your lights here</Text>
+                    */}
+                    <TouchableOpacity>
+                            <Text style={styles.textButtonshop}>
+                                   Edit Feature  
+                            </Text>
+                        </TouchableOpacity>
+                           
+                        <Text style={{ fontSize: 25, fontWeight: 'bold', color: 'white', paddingTop: 10,paddingBottom: 20, marginBottom: 10, textAlign: 'left' }}>Room 1</Text>
+
+                        <Text style={{ fontSize: 20, color: 'white', fontWeight: 'bold' }}>Brightness Level = {gateNo}</Text>
+                        <View>
+                        <Slider
+                            step={1}
+                            minimumValue={0}
+                            maximumValue={100}
+                            minimumTrackTintColor="#009688"
+                            onValueChange={(ChangedValue) => setGateNo(ChangedValue)}
+                            style={styles.slider}
+                        />
+                        </View>
+                        <View style={{ flexDirection: 'row' }}>
                     <View
                         style={{
                             width: '100%',
@@ -143,49 +133,41 @@ const BrightnessControl = props => {
                             marginBottom: 20,
                             marginRight: 5,
                         }}>
-                        {/* <TouchableOpacity
-                            onPress={() => lighton(1)}
+                        <TouchableOpacity
+                            onPress={() => lightdim(6)}
                             style={[
                                 styles.btn,
                                 lightState === 'Close' ? styles.btnActivate : null,
                             ]}>
-                            <Text style={{ fontSize: 20 }}>ON</Text>
+                            <Text style={{ fontSize: 20 }}>Up</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => lighton(2)}
-                            style={[
-                                styles.btn,
-                                lightState === 'Open' ? styles.btnActivate : null,
-                            ]}>
-                            <Text style={{ fontSize: 20 }}>ON</Text>
-                        </TouchableOpacity> */}
-                        
-                        <ScrollView></ScrollView>
                         
                     </View>
-                    {/* <View
+                    <View
                         style={{ width: '100%', flex: 1, marginBottom: 20, marginLeft: 5 }}>
                         <TouchableOpacity
-                            onPress={() => lightoff(1)}
+                            onPress={() => lightldim(6)}
                             style={[
                                 styles.btn,
                                 lightState === 'Close' ? styles.btnActivate : null,
                             ]}>
-                            <Text style={{ fontSize: 20 }}>OFF</Text>
+                            <Text style={{ fontSize: 20 }}>Down</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => lightoff(2)}
-                            style={[
-                                styles.btn,
-                                lightState === 'Close' ? styles.btnActivate : null,
-                            ]}>
-                            <Text style={{ fontSize: 20 }}>OFF</Text>
-                            
-                        </TouchableOpacity>
-                        
-                    </View> */}
                     </View>
-                    {/* {displayNumber(6)} */}
+                    </View>
+                        
+                        
+                  
+
+                    {/*}
+                    <View style={styles.containerButton}>
+                        <TouchableOpacity>
+                            <Text style={styles.textButton}>
+                                Add to cart
+                    </Text>
+                        </TouchableOpacity>
+                    </View>
+                                */}
                 </SafeAreaView>
             </ImageBackground>
         </View>
@@ -271,7 +253,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
 
-    slider: {
+    slider:{
 
         width: 200,
         color: 'white',
@@ -281,26 +263,39 @@ const styles = StyleSheet.create({
 
     btnActivate: {
         backgroundColor: '#FF8C00',
-    },
+      },
 
     btnInactive: {},
-    title: {
-        fontSize: 20,
-        marginVertical: 5,
-    },
-    btn: {
-        height: 40,
-        borderRadius: 50,
-        width: '100%',
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginBottom: 20,
-        elevation: 3,
-
-    },
+  title: {
+    fontSize: 20,
+    marginVertical: 5,
+  },
+  btn: {
+    height: 40,
+    borderRadius: 50,
+    width: '100%',
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 20,
+    elevation: 3,
+    
+  },
+  textButtonshop: {
+    padding: 10,
+    backgroundColor: 'orange',
+    borderRadius: 15,
+    color: 'white',
+    fontWeight: 'bold',
+    
+    width: 130,
+    fontSize: 20,
+    margin: 20,
+   
+    
+},
 });
-export default BrightnessControl;
+export default LightBrightness;
 
 
 

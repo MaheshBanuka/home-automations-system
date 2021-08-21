@@ -11,65 +11,71 @@ import {
 // import Seeker from './../screens/Seeker';
 
 const Trip = props => {
+
     const [lightState, setLightState] = useState(0);
     const [gateNo, setGateNo] = useState(0);
-      const lighton = async (id) => {
+    const lighton = async (id) => {
         var details = {
             'id': id,
             'value': "On_D"
-          };
-          var formBody = [];
-          for (var property in details) {
+        };
+        var formBody = [];
+        for (var property in details) {
             var encodedKey = encodeURIComponent(property);
             var encodedValue = encodeURIComponent(details[property]);
             formBody.push(encodedKey + "=" + encodedValue);
-          }
-          let formBodydata = formBody.join("&");
-          console.log("pressed");
+        }
+        let formBodydata = formBody.join("&");
+        console.log("pressed");
         const requestOptions = {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
-          body: formBodydata
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+            body: formBodydata
         };
-        fetch('http://192.168.8.101:8080/demo_war/onoff', requestOptions)
-        // .then(response=>console.log(response._bodyBlob))
-        .then(response => response.json())
-        .then(data => {
-          if (data.name === "banuka") {
-            console.log(data.name);
-          }
-        })
-        .catch(e => console.log(e))
-      }
+        fetch('http://192.168.8.102:8080/demo_war/onoff', requestOptions)
+            // .then(response=>console.log(response._bodyBlob))
+            .then(response => response.json())
+            .then(data => {
+                if (data.name === "banuka") {
+                    console.log(data.name);
+                }
+            })
+            .catch(e => console.log(e))
+    }
 
-      const lightoff = async (id) => {
+    const lightoff = async (id) => {
         var details = {
             'id': id,
             'value': "Off_D"
-          };
-          var formBody = [];
-          for (var property in details) {
+        };
+        var formBody = [];
+        for (var property in details) {
             var encodedKey = encodeURIComponent(property);
             var encodedValue = encodeURIComponent(details[property]);
             formBody.push(encodedKey + "=" + encodedValue);
-          }
-          let formBodydata = formBody.join("&");
-          console.log("pressed");
+        }
+        let formBodydata = formBody.join("&");
+        console.log("pressed");
         const requestOptions = {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
-          body: formBodydata
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+            body: formBodydata
         };
-        fetch('http://192.168.8.101:8080/demo_war/onoff', requestOptions)
-        // .then(response=>console.log(response._bodyBlob))
-        .then(response => response.json())
-        .then(data => {
-          if (data.name === "banuka") {
-            console.log(data.name);
-          }
-        })
-        .catch(e => console.log(e))
-      }
+        fetch('http://192.168.8.102:8080/demo_war/onoff', requestOptions)
+            // .then(response=>console.log(response._bodyBlob))
+            .then(response => response.json())
+            .then(data => {
+                if (data.name === "banuka") {
+                    console.log(data.name);
+                }
+            })
+            .catch(e => console.log(e))
+    }
+
+
+
+
+
     return (
         <SafeAreaView style={{ backgroundColor: 'white' }}>
             <View
@@ -80,7 +86,7 @@ const Trip = props => {
                     backgroundColor: 'white',
                 }}>
                 <View style={{ flexDirection: 'row' }}>
-                
+
                     <View
                         style={{
                             width: '100%',
@@ -96,20 +102,6 @@ const Trip = props => {
                             ]}>
                             <Text style={{ fontSize: 20 }}>ON</Text>
                         </TouchableOpacity>
-                        
-                        {/* <Text style={{ fontSize: 20 }}>Slider Value = {gateNo}</Text> */}
-
-                        {/* <View>
-                            <Slider
-                                step={1}
-                                minimumValue={0}
-                                maximumValue={100}
-                                minimumTrackTintColor="#009688"
-                                onValueChange={(ChangedValue) => setGateNo(ChangedValue)}
-                                style={{ width: '100%' }}
-                            />
-
-                        </View> */}
                         <TouchableOpacity
                             onPress={() => lighton(2)}
                             style={[
@@ -138,7 +130,7 @@ const Trip = props => {
                             <Text style={{ fontSize: 20 }}>OFF</Text>
                         </TouchableOpacity>
                     </View>
-                    
+
                 </View>
             </View>
         </SafeAreaView>

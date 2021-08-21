@@ -14,6 +14,7 @@ import ViewTextInput from '../../components/ViewTextInput';
 
 const Signup = props => {
     const { navigation, route } = props;
+    const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
     const [address, setAddress] = useState('');
@@ -34,13 +35,13 @@ const Signup = props => {
     }
     let formBodydata = formBody.join("&");
     const loginHandler = async () => {
-        // console.log(formState.email);
+        // console.log("formState.email");
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
             body: formBodydata
         };
-        fetch('http://192.168.8.102:8080/demo_war/onoff', requestOptions)
+        fetch('http://192.168.8.102:8080/demo_war/user', requestOptions)
             // .then(response=>console.log(response._bodyBlob))
             .then(response => response.json())
             .then(data => {

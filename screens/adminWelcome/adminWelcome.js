@@ -12,7 +12,8 @@ import {
 import Hedding from '../../components/Hedding';
 import bgImage from '../../assets/img/adminWelcome.jpg';
 const adminWelcome = props => {
-    const { navigation } = props;
+    const { navigation, route } = props;
+    const { name } = route.params;
     return (
         <View style={{ flex: 1 }}>
             <StatusBar translucent backgroundColor="rgba(0,0,0,0)" />
@@ -31,7 +32,7 @@ const adminWelcome = props => {
                     </View>
                     <Hedding style={{ color: 'white', fontSize: 40, fontWeight: 'bold', padding: 40, paddingTop: 150 }}>Welcome!</Hedding>
                     <View style={styles.containerButton}>
-                        <TouchableOpacity onPress={() => { navigation.navigate('adminService'); }}>
+                        <TouchableOpacity onPress={() => { navigation.navigate('adminService',{name: name}); }}>
                             <Text style={styles.textButton}>
                                 Service Management
                             </Text>
@@ -39,7 +40,7 @@ const adminWelcome = props => {
 
                     </View>
                     <View style={styles.containerButton}>
-                        <TouchableOpacity onPress={() => { navigation.navigate('adminUserManagement'); }}>
+                        <TouchableOpacity onPress={() => { navigation.navigate('adminUserManagement',{name: name}); }}>
                             <Text style={styles.textButton}>
                                 User Management
                             </Text>

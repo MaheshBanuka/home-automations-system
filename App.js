@@ -9,7 +9,12 @@ import {createStackNavigator} from '@react-navigation/stack';
 import login from './screens/LogIn/login';
 import Signup from './screens/Signup/Signup';
 import Trip from './screens/Trip';
+import Splash from './screens/Splash';
+import test from './screens/test';
 import Lightonoff from './screens/Lightonoff/Lightonoff';
+import LightBrightness from './screens/LightBrightness/LightBrightness';
+import FanControl from './screens/FanControl/FanControl';
+import DoorControl from './screens/DoorControl/DoorControl';
 import addFeature from './screens/addFeature/addFeature';
 import BrightnessControl from './screens/BrightnessControl/BrightnessControl';
 import LightPurchase from './screens/LightPurchase/LightPurchase';
@@ -23,16 +28,59 @@ import adminServiceUpdate from './screens/adminServiceUpdate/adminServiceUpdate'
 import adminUserManagement from './screens/adminUserManagement/adminUserManagement';
 import adminWelcome from './screens/adminWelcome/adminWelcome';
 import getStarted from './screens/getStarted/getStarted';
+import MyServices from './screens/MyServices/MyServices';
 
 const Stack = createStackNavigator();
 
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={'getStarted'}>
+      <Stack.Navigator initialRouteName={'cart'}>
         <Stack.Screen
           name="LightPurchase"
           component={LightPurchase}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="MyServices"
+          component={MyServices}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="LightBrightness"
+          component={LightBrightness}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="FanControl"
+          component={FanControl}
+          options={{
+            headerShown: false,
+          }}
+        />
+        {/* <Stack.Screen
+          name="Splash"
+          component={Splash}
+          options={{
+            headerShown: false,
+          }}
+        /> */}
+        <Stack.Screen
+          name="DoorControl"
+          component={DoorControl}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="test"
+          component={test}
           options={{
             headerShown: false,
           }}

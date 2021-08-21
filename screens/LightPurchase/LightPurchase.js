@@ -19,9 +19,9 @@ import { Bluetooth } from '@material-ui/icons';
 const LightPurchase = props => {
     const { navigation, route } = props;
     const { name, servicenum } = route.params;
-    // const [name,setName] = useState('Banuka');
-    const [open, setOpen] = useState(false);
     const [value, setValue] = useState(null);
+    const [open, setOpen] = useState(false);
+    const [fun, setFun] = useState('add');
     const [items, setItems] = useState([
         { label: '1', value: 1 },
         { label: '2', value: 2 },
@@ -54,14 +54,50 @@ const LightPurchase = props => {
     {
         title: 'Water Tank',
         dis: 'Don"t give command or be commanded to turn off and on the water tank and no wastage of water again. Control your water tank easily.'
+    },
+    {
+        title: 'Door Lock/Unlock',
+        dis: 'Don"t give command or be commanded to Lock Unlock Door,do it with your mobile by fingertip.'
     }]
 
     useEffect(() => {
         for (let index = 0; index < 4; index++) {
             <Hedding style={{ color: 'white', }}>{data[servicenum].title}</Hedding>
-        console.log(data[index].dis)
         }
     }, [])
+    const title = data[servicenum].title
+    var details = {
+        'name': name,
+        'servicename': data[servicenum].title,
+        'qty': value,
+        'fun': fun
+    };
+    var formBody = [];
+    for (var property in details) {
+        var encodedKey = encodeURIComponent(property);
+        var encodedValue = encodeURIComponent(details[property]);
+        formBody.push(encodedKey + "=" + encodedValue);
+    }
+    let formBodydata = formBody.join("&");
+    const addcart = async () => {
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+            body: formBodydata
+        };
+        fetch('http://192.168.8.102:8080/demo_war/addcart', requestOptions)
+            // .then(response=>console.log(response._bodyBlob))
+            .then(response => response.json())
+            .then(data => {
+                console.log(data.Response)
+                if (data.Response === "testCart Recorded") {
+                    navigation.navigate('cart', { name:name});
+                }
+            })
+            .catch(e => console.log(e))
+    }
+    // const [name,setName] = useState('Banuka');
+
     return (
         <View style={{ flex: 1 }}>
             <StatusBar translucent backgroundColor="rgba(0,0,0,0)" />
@@ -104,29 +140,9 @@ const LightPurchase = props => {
                             style={styles.dp}
                         />
                     </View>
-                    {/*      
-                    
-                    <View style={styles.row}>
-                        <View style={styles.inputWrap}>
-                            <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white', paddingTop: 30, paddingLeft: 20, textAlign: 'left' }}>Feature 1 :</Text>
-                        </View>
-                        <View style={styles.inputWrapText}>
-                            <TextInput
-                                style={styles.input}
-                                placeholder='eg. som' />
-                        </View>
-                    </View>
-                    <View style={styles.row}>
-                        <View style={styles.inputWrap}>
-                            <Text style={{ fontSize: 24, fontWeight: 'bold', color: 'white', paddingTop: 10, paddingLeft: 20, textAlign: 'left' }}>Price</Text>
-                        </View>
-                        <View style={styles.inputWrapText}>
-                            <Text style={{ fontSize: 24, fontWeight: 'bold', color: 'white', paddingTop: 10, paddingLeft: -10, marginRight: 33 }}>48,000LKR</Text>
-                        </View>
-                    </View>*/}
                     <View style={styles.containerButton}>
                         <TouchableOpacity onPress={() => {
-                            navigation.navigate('addFeature', { value: value,name:name });
+                            addcart();
                         }}>
                             <Text style={styles.textButton}>
                                 Add to cart

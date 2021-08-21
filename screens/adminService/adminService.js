@@ -17,8 +17,8 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import Hedding from '../../components/Hedding';
 import bgImage from '../../assets/img/adminService.jpg';
 const adminService = props => {
-    const { navigation } = props;
-
+    const { navigation, route } = props;
+    const { name } = route.params;
     return (
         <View style={{ flex: 1 }}>
             <StatusBar translucent backgroundColor="rgba(0,0,0,0)" />
@@ -38,7 +38,7 @@ const adminService = props => {
                     <Hedding style={{ color: 'white', fontSize: 40, fontWeight: 'bold', padding: 40, paddingTop: 150 }}>Service Management</Hedding>
 
                     <View style={styles.containerButton}>
-                        <TouchableOpacity onPress={() => { navigation.navigate('Dashbord'); }}>
+                        <TouchableOpacity onPress={() => { navigation.navigate('Dashbord',{name: name}); }}>
                             <Text style={styles.textButton}>
                                 View Existing Services
                             </Text>
