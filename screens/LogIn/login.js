@@ -15,6 +15,7 @@ import ViewTextInput from '../../components/ViewTextInput';
 import { async } from 'node-stream-zip';
 
 const login = props => {
+  
   const { navigation } = props;
   const [name, setName] = useState('');
   const [nameu, setNameu] = useState('');
@@ -31,12 +32,13 @@ const login = props => {
   }
   let formBodydata = formBody.join("&");
   const loginHandler = async () => {
+    // console.log("aasdasd")
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
       body: formBodydata
     };
-    fetch('http://192.168.8.101:8080/demo_war/login', requestOptions)
+    fetch('http://192.168.8.100:8080/demo_war/login', requestOptions)
       // .then(response=>console.log(response._bodyBlob))
       .then(response => response.json())
       .then(data => {

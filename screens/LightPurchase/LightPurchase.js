@@ -44,7 +44,7 @@ const LightPurchase = props => {
         dis: 'Control your light"s brightness anytime and access variations of your home"s lightning . Control any number of lights you prefer through your fingertips.'
     },
     {
-        title: 'Fan Control',
+        title: 'Fan Controll',
         dis: 'Feel the wind just the way you want it and access all your fans through fingertips'
     },
     {
@@ -85,7 +85,7 @@ const LightPurchase = props => {
             headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
             body: formBodydata
         };
-        fetch('http://192.168.8.101:8080/demo_war/addcart', requestOptions)
+        fetch('http://192.168.8.100:8080/demo_war/addcart', requestOptions)
             // .then(response=>console.log(response._bodyBlob))
             .then(response => response.json())
             .then(data => {

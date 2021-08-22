@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import {
-    View, 
-    ImageBackground, 
-    TouchableOpacity, 
-    StatusBar, 
-    SafeAreaView, 
-    StyleSheet, 
-    Text, 
-    TextInput, 
+    View,
+    ImageBackground,
+    TouchableOpacity,
+    StatusBar,
+    SafeAreaView,
+    StyleSheet,
+    Text,
+    ScrollView,
+    TextInput,
     Slider,
     Modal
 } from 'react-native';
@@ -16,7 +17,58 @@ import Hedding from '../../components/Hedding';
 import bgImage from '../../assets/img/adminUserManagement.jpg';
 const adminServiceUpdate = props => {
     const { navigation } = props;
+    const [servicename, setServicename] = useState([])
+    const [serviceid, setServieid] = useState([])
+    const [servicecost, setServiecost] = useState([])
+    
+    const servicedata = async () => {
+        var details = {
 
+        };
+        var formBody = [];
+        for (var property in details) {
+            var encodedKey = encodeURIComponent(property);
+            var encodedValue = encodeURIComponent(details[property]);
+            formBody.push(encodedKey + "=" + encodedValue);
+        }
+        let formBodydata = formBody.join("&");
+        console.log("done");
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+            body: formBodydata
+        };
+        fetch('http://192.168.8.100:8080/demo_war/viewservice', requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                setServicename(JSON.parse(data.servicenames));
+                setServieid(JSON.parse(data.serviceid));
+                setServiecost(JSON.parse(data.servicecost));
+            })
+            .catch(e => console.log(e))
+    }
+    React.useEffect(() => {
+        servicedata()
+    }, [])
+
+    const displayNumber = () => {
+        let tempList = []
+        for (let i = 0; i < serviceid.length; i++) {
+            tempList.push(
+                <View key={i} style={styles.row}>
+                    <View key={i+1} style={styles.inputWrap}>
+                        <Text key={i+2} style={{ fontSize: 18, color: 'white', paddingTop: 10, paddingRight: 0, textAlign: 'center',paddingLeft: 20 }}>{servicename[i]}</Text>
+                    </View>
+                    <TouchableOpacity key={i+3} onPress={() => { navigation.navigate('adminAddService',{servicename:servicename[i],serviceid:serviceid[i],servicecost:servicecost[i]}); }}>
+                        <Text key={i+4} style={styles.textButtonupdate}>
+                            Update
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+            )
+        }
+        return tempList;
+    }
     return (
         <View style={{ flex: 1 }}>
             <StatusBar translucent backgroundColor="rgba(0,0,0,0)" />
@@ -41,26 +93,9 @@ const adminServiceUpdate = props => {
                         </View>
                         <View style={styles.inputWrap}>
                             <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white', paddingTop: 10, paddingLeft: 60, textAlign: 'center' }}>Actions</Text>
-                        </View>    
-                        
-                    </View>
-
-                    <View style={styles.row}>
-                        <View style={styles.inputWrap}>
-                            <Text style={{ fontSize: 18, color: 'white', paddingTop: 10, paddingRight: 20, textAlign: 'center' }}>1.Light Control</Text>
                         </View>
-                        <TouchableOpacity onPress={() => {navigation.navigate('adminAddService');}}>
-                            <Text style={styles.textButtonupdate}>
-                                   Update
-                            </Text>
-                        </TouchableOpacity>
-
-                        
                     </View>
-                   {/* table body ends */}
-                  
-
-                   
+                    {displayNumber()}
                 </SafeAreaView>
             </ImageBackground>
         </View>
@@ -83,7 +118,7 @@ const styles = StyleSheet.create({
         opacity: 0.9,
         height: 68,
     },
-    
+
     row: {
         flexDirection: 'row',
         paddingLeft: -15,
@@ -94,13 +129,13 @@ const styles = StyleSheet.create({
         padding: -8,
         marginLeft: -10
     },
-    
+
     textButtonupdate: {
         padding: 10,
         backgroundColor: 'orange',
         borderRadius: 15,
         color: 'white',
-        margin: 7,   
+        margin: 7,
         fontWeight: 'bold',
         justifyContent: 'center',
         marginLeft: 130,
@@ -111,7 +146,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
         alignItems: 'center',
         alignContent: 'center',
-        
+
     },
 
     textButtonadd: {
@@ -124,10 +159,10 @@ const styles = StyleSheet.create({
         width: 170,
         fontSize: 20,
         paddingLeft: 25,
-       
-        
+
+
     },
-    
+
 
 });
 export default adminServiceUpdate;

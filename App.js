@@ -22,6 +22,8 @@ import ResetPassword from './screens/ResetPassword/ResetPassword';
 import Dashbord from './screens/Dashbord/Dashbord';
 import Seeker from './screens/Seeker';
 import cart from './screens/cart/cart';
+import EditFeature from './screens/EditFeature/EditFeature';
+import Renamefe from './screens/EditFeature/Rename';
 import adminAddService from './screens/adminAddService/adminAddService';
 import adminService from './screens/adminService/adminService';
 import adminServiceUpdate from './screens/adminServiceUpdate/adminServiceUpdate';
@@ -35,7 +37,21 @@ const Stack = createStackNavigator();
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={'login'}>
+      <Stack.Navigator initialRouteName={'adminServiceUpdate'}>
+      <Stack.Screen
+          name="Renamefe"
+          component={Renamefe}
+          options={{
+            headerShown: false,
+          }}
+        />
+      <Stack.Screen
+          name="EditFeature"
+          component={EditFeature}
+          options={{
+            headerShown: false,
+          }}
+        />
         <Stack.Screen
           name="LightPurchase"
           component={LightPurchase}

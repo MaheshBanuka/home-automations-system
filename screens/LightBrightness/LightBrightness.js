@@ -24,7 +24,8 @@ const LightBrightness = props => {
     const [lightState, setLightState] = useState(0);
     const [gateNo, setGateNo] = useState(0);
     const [open, setOpen] = useState(false);
-    const [value, setValue] = useState(null);
+    const [value, setValue] = useState([]);
+    
     const lightdim = async (id) => {
         var details = {
             'id': id,
@@ -84,13 +85,11 @@ const LightBrightness = props => {
     }
 
     const displayNumber = (number) => {
-        console.log(serviceqty)
         let tempList = []
         for (let i = 0; i < number; i++) {
             tempList.push(
-                <View key = {i+6}>
-                <Text style={{ fontSize: 20, color: 'white', fontWeight: 'bold' }}>Brightness Level = {gateNo}</Text>
-
+                <View key = {i+6} style={{width:350}}>
+                <Text style={{ fontSize: 20, color: 'white', fontWeight: 'bold' }}>{value[i]}</Text>
                 <View key={i+1} style={{ flexDirection: 'row' }}>
                         <View key={i+2}
                             style={{
@@ -107,7 +106,6 @@ const LightBrightness = props => {
                                 ]}>
                                 <Text style={{ fontSize: 20 }}>Up</Text>
                             </TouchableOpacity>
-
                         </View>
                         <View key={i+4}
                             style={{ width: '100%', flex: 1, marginBottom: 20, marginLeft: 5 }}>
@@ -127,7 +125,36 @@ const LightBrightness = props => {
         return tempList;
     }
 
-    
+    const featurenames = async () => {
+        var details = {
+            'name': name,
+            'serid': 2,
+            'qty': serviceqty
+
+        };
+        var formBody = [];
+        for (var property in details) {
+            var encodedKey = encodeURIComponent(property);
+            var encodedValue = encodeURIComponent(details[property]);
+            formBody.push(encodedKey + "=" + encodedValue);
+        }
+        let formBodydata = formBody.join("&"); 
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+            body: formBodydata
+        };
+        fetch('http://192.168.8.100:8080/demo_war/feature', requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                setValue(JSON.parse(data.servicenames));
+            })
+            .catch(e => console.log(e))
+    }
+    React.useEffect(() => {
+        featurenames()
+    }, [])
+
     return (
         <View style={{ flex: 1 }}>
             <StatusBar translucent backgroundColor="rgba(0,0,0,0)" />
@@ -145,12 +172,9 @@ const LightBrightness = props => {
                         {/* <Icon name="person" size={35} style={{ paddingTop: 0, color: 'white' }} /> */}
                     </View>
                     <Hedding style={{ color: 'white', }}>Light Brightenss Control</Hedding>
-                    {/*sub heading and desc*/}
-
                     <View style={styles.extraText}>
                         <Text style={styles.extraTextTo}>────────────────────</Text>
                     </View>
-
                     {/*<Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white', paddingTop: 10, marginBottom: 10, textAlign: 'left' }}>Control your lights here</Text>
                     */}
                     <TouchableOpacity>
@@ -158,10 +182,7 @@ const LightBrightness = props => {
                             Edit Feature
                             </Text>
                     </TouchableOpacity>
-
-                    <Text style={{ fontSize: 25, fontWeight: 'bold', color: 'white', paddingTop: 10, paddingBottom: 20, marginBottom: 10, textAlign: 'left' }}>Room 1</Text>
-
-                    
+                
                     {/* <View>
                         <Slider
                             step={1}
@@ -173,16 +194,6 @@ const LightBrightness = props => {
                         />
                         </View> */}
                     {displayNumber(serviceqty)}
-
-                    {/*}
-                    <View style={styles.containerButton}>
-                        <TouchableOpacity>
-                            <Text style={styles.textButton}>
-                                Add to cart
-                    </Text>
-                        </TouchableOpacity>
-                    </View>
-                                */}
                 </SafeAreaView>
             </ImageBackground>
         </View>

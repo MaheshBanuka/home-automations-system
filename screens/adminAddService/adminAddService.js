@@ -8,14 +8,53 @@ import {
     StyleSheet,
     Text,
     TextInput,
-    Slider,
+    Alert,
     Modal
 } from 'react-native';
 // import Icon from 'react-native-vector-icons/MaterialIcons';
 import Hedding from '../../components/Hedding';
 import bgImage from '../../assets/img/adminUserManagement.jpg';
-const adminAddService = () => {
+const adminAddService  = props => {
+    const { navigation, route } = props;
+    const { servicename,serviceid,servicecost } = route.params;
+    const [name, setName] = useState(servicename);
+    const [cost, setCost] = useState(servicecost);
 
+    const update = async () => {
+        var details = {
+            'id': serviceid,
+            'name': name,
+            'cost': cost
+        };
+        var formBody = [];
+        for (var property in details) {
+            var encodedKey = encodeURIComponent(property);
+            var encodedValue = encodeURIComponent(details[property]);
+            formBody.push(encodedKey + "=" + encodedValue);
+        }
+        let formBodydata = formBody.join("&");
+        console.log("pressed");
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+            body: formBodydata
+        };
+        fetch('http://192.168.8.100:8080/demo_war/updateservice', requestOptions)
+            // .then(response=>console.log(response._bodyBlob))
+            .then(response => response.json())
+            .then(data => {
+                if (data.response === "Service Details Updated") {
+                    Alert.alert(
+                        "Message",
+                        "Service Details Updated",
+                        [
+                          { text: "OK", onPress: () => navigation.navigate('adminServiceUpdate') }
+                        ]
+                      ); 
+                }
+            })
+            .catch(e => console.log(e))
+    }
     return (
         <View style={{ flex: 1 }}>
             <StatusBar translucent backgroundColor="rgba(0,0,0,0)" />
@@ -36,22 +75,16 @@ const adminAddService = () => {
                     <Text style={{ color: 'white', fontSize: 16, justifyContent: 'center', alignItems: 'center', textAlign: 'center', padding: 10, paddingLeft: 90 }}>
                         Update Service
                     </Text>
-
                     <View style={styles.extraText}>
                         <Text style={styles.extraTextTo}>────────────────────</Text>
                     </View>
-
-
-
-
-
                     <View style={styles.row}>
                         <View style={styles.inputWrap}>
                             <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white', paddingTop: 30, paddingLeft: 30, textAlign: 'left' }}>Service ID :</Text>
                         </View>
                         <View style={styles.inputWrapText}>
                             <TextInput
-                                style={styles.input}
+                                style={styles.input}value={''+serviceid}
                             />
                         </View>
                     </View>
@@ -62,6 +95,9 @@ const adminAddService = () => {
                         <View style={styles.inputWrapText}>
                             <TextInput
                                 style={styles.input}
+                                placeholder={servicename}
+                                value={name}
+                                onChangeText={value => setName(value)}
                             />
                         </View>
                     </View>
@@ -72,25 +108,20 @@ const adminAddService = () => {
                         <View style={styles.inputWrapText}>
                             <TextInput
                                 style={styles.input}
-                                placeholder='Rs.' />
+                                placeholder={'Rs'+servicecost}
+                                value={''+cost}
+                                onChangeText={value => setCost(value)}
+                                />
                         </View>
                     </View>
 
                     <View style={styles.containerButton}>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress = {() => {update() }}>
                             <Text style={styles.textButtonUpdate}>
                                 Update Services
                             </Text>
                         </TouchableOpacity>
-
                     </View>
-                    {/* <View style={styles.containerButtonUpdate}>
-                        <TouchableOpacity>
-                            <Text style={styles.textButtonUpdate}>
-                                   Update Services  
-                            </Text>
-                        </TouchableOpacity>
-                    </View> */}
                 </SafeAreaView>
             </ImageBackground>
         </View>

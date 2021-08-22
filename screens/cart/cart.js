@@ -85,7 +85,7 @@ const cart = props => {
             headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
             body: formBodydata
         };
-        fetch('http://192.168.8.101:8080/demo_war/viewcart', requestOptions)
+        fetch('http://192.168.8.100:8080/demo_war/viewcart', requestOptions)
             .then(response => response.json())
             .then(data => {
                 setServicenametemp(JSON.parse(data.servicenames));
@@ -114,7 +114,7 @@ const cart = props => {
             headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
             body: formBodydata
         };
-        fetch('http://192.168.8.101:8080/demo_war/compay', requestOptions)
+        fetch('http://192.168.8.100:8080/demo_war/compay', requestOptions)
             .then(response => response.json())
             .then(data => {
                 // setServicenametemp(JSON.parse(data.servicenames));
@@ -206,7 +206,7 @@ const cart = props => {
                         </View>
                     </View>
                     <View style={styles.containerButton}>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={()=>cartcom()}>
                             <Text style={styles.textButtonshop}>
                                 Continue shopping
                             </Text>
