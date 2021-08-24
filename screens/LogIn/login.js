@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   TextInput,
   Dimensions,
+  Alert
 } from 'react-native';
 
 import SubmitButton from '../../components/SubmitButton';
@@ -19,19 +20,21 @@ const login = props => {
   const { navigation } = props;
   const [name, setName] = useState('');
   const [nameu, setNameu] = useState('');
+  const [responsedata, setResponsedata] = useState([]);
   const [password, setPassword] = useState('');
-  var details = {
-    'name': name,
-    'password': password
-  };
-  var formBody = [];
-  for (var property in details) {
-    var encodedKey = encodeURIComponent(property);
-    var encodedValue = encodeURIComponent(details[property]);
-    formBody.push(encodedKey + "=" + encodedValue);
-  }
-  let formBodydata = formBody.join("&");
+
   const loginHandler = async () => {
+    var details = {
+      'name': name,
+      'password': password
+    };
+    var formBody = [];
+    for (var property in details) {
+      var encodedKey = encodeURIComponent(property);
+      var encodedValue = encodeURIComponent(details[property]);
+      formBody.push(encodedKey + "=" + encodedValue);
+    }
+    let formBodydata = formBody.join("&");
     // console.log("aasdasd")
     const requestOptions = {
       method: 'POST',
@@ -39,16 +42,10 @@ const login = props => {
       body: formBodydata
     };
     fetch('http://192.168.8.100:8080/demo_war/login', requestOptions)
-      // .then(response=>console.log(response._bodyBlob))
       .then(response => response.json())
       .then(data => {
-        
-        setNameu(data.name)
-        const servicenames=JSON.parse(data.servicenames)
-        const serviceqty=JSON.parse(data.serviceqty)
-        if (data.name === "banuka") {
+        if (data.type === '"admin"' && data.status == '"active"') {
           navigation.navigate('adminWelcome',{name: name});
-          console.log(data.name);
           // navigation.navigate('Dashbord');
           
           // navigation.reset({
@@ -61,8 +58,35 @@ const login = props => {
           //     ],
           //   });
         }
+        else if(data.type === '"user"' && data.status == '"active"'){
+          navigation.navigate('Dashbord', {name: name});
+        }
+        else if(data.type === '"user"' && data.status == '"banned"'){
+          Alert.alert(
+            "Message",
+            "User Banned Plese Contact Administrator",
+            [
+              { text: "OK" }
+            ]
+          );
+        }
+        else if(data.type === '"admin"' && data.status == '"banned"'){
+          Alert.alert(
+            "Message",
+            "User Banned Please Contact Administrator",
+            [
+              { text: "OK" }
+            ]
+          );
+        }
         else{
-          navigation.navigate('Dashbord', {name: name,servicenames:servicenames,serviceqty:serviceqty});
+          Alert.alert(
+            "Message",
+            "User Login Failed",
+            [
+              { text: "OK" }
+            ]
+          );
         }
       })
       .catch(e => console.log(e))

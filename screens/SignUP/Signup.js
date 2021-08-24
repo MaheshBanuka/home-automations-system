@@ -6,6 +6,7 @@ import {
     SafeAreaView,
     TextInput,
     Dimensions,
+    Alert
 } from 'react-native';
 
 import SubmitButton from '../../components/SubmitButton';
@@ -47,7 +48,22 @@ const Signup = props => {
             .then(data => {
                 console.log(data.Response)
                 if (data.Response === "testUser Registerd") {
-                    navigation.navigate('login');
+                    Alert.alert(
+                        "Message",
+                        "User Registerd Successfully",
+                        [
+                          { text: "OK", onPress: () => navigation.navigate('login') }
+                        ]
+                      ); 
+                }
+                else{
+                    Alert.alert(
+                        "Message",
+                        "User Registerd Failed",
+                        [
+                          { text: "OK", onPress: () => navigation.navigate('login') }
+                        ]
+                      ); 
                 }
             })
             .catch(e => console.log(e))

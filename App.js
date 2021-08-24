@@ -37,7 +37,7 @@ const Stack = createStackNavigator();
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={'adminServiceUpdate'}>
+      <Stack.Navigator initialRouteName={'login'}>
       <Stack.Screen
           name="Renamefe"
           component={Renamefe}

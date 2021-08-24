@@ -7,9 +7,7 @@ import {
     SafeAreaView, 
     StyleSheet, 
     Text, 
-    TextInput, 
-    Slider,
-    Modal
+    Alert
 } from 'react-native';
 import { ModalPicker } from '../../components/ModalPicker'
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -17,11 +15,193 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import Hedding from '../../components/Hedding';
 import bgImage from '../../assets/img/adminUserManagement.jpg';
 const adminUserManagement = () => {
-    
-    const [lightState, setLightState] = useState(0);
-  const [gateNo, setGateNo] = useState(0);
+    const [username, setUsername] = useState([])
+    const [userid, setUserid] = useState([])
 
-    
+    const userdata = async () => {
+        var details = {
+        };
+        var formBody = [];
+        for (var property in details) {
+            var encodedKey = encodeURIComponent(property);
+            var encodedValue = encodeURIComponent(details[property]);
+            formBody.push(encodedKey + "=" + encodedValue);
+        }
+        let formBodydata = formBody.join("&");
+        console.log("done");
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+            body: formBodydata
+        };
+        fetch('http://192.168.8.100:8080/demo_war/viewuser', requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                setUsername(JSON.parse(data.usernames));
+                setUserid(JSON.parse(data.userid));
+            })
+            .catch(e => console.log(e))
+    }
+    React.useEffect(() => {
+        userdata()
+    }, [])
+
+    const displayNumber = () => {
+        let tempList = []
+        for (let i = 0; i < username.length; i++) {
+            tempList.push(
+                <View style={styles.row}>
+                        <View style={styles.inputWrap}>
+                            <Text style={{ fontSize: 18, color: 'white', paddingTop: 10, paddingLeft: 20, textAlign: 'center' }}>{i+1}.{username[i]}</Text>
+                        </View>
+                        <TouchableOpacity onPress={() => { banneduser(userid[i]) }}>
+                            <Text style={styles.textButtonbanned}>
+                                   Banned 
+                            </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => { useractive(userid[i]) }}>
+                            <Text style={styles.textButtonactive}>
+                                   Active 
+                            </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => { userdelete(userid[i]) }}>
+                            <Text style={styles.textButtondelete}>
+                                   Delete 
+                            </Text>
+                        </TouchableOpacity>                                            
+                    </View>
+            )
+        }
+        return tempList;
+    }
+
+    const banneduser = async (id) => {
+        
+        var details = {
+            'userid':id
+        };
+        var formBody = [];
+        for (var property in details) {
+            var encodedKey = encodeURIComponent(property);
+            var encodedValue = encodeURIComponent(details[property]);
+            formBody.push(encodedKey + "=" + encodedValue);
+        }
+        let formBodydata = formBody.join("&");
+        console.log("done");
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+            body: formBodydata
+        };
+        fetch('http://192.168.8.100:8080/demo_war/userbanned', requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data.result)
+                if(data.result == '"Banned Success"'){
+                    Alert.alert(
+                        "Message",
+                        "User Banned Successfully",
+                        [
+                          { text: "OK" }
+                        ]
+                      );
+                }
+                else {
+                    Alert.alert(
+                        "Message",
+                        "User Banned Failed",
+                        [
+                          { text: "OK" }
+                        ]
+                      );
+                }
+            })
+            .catch(e => console.log(e))
+    }
+
+    const useractive = async (id) => {
+        var details = {
+            'userid':id
+        };
+        var formBody = [];
+        for (var property in details) {
+            var encodedKey = encodeURIComponent(property);
+            var encodedValue = encodeURIComponent(details[property]);
+            formBody.push(encodedKey + "=" + encodedValue);
+        }
+        let formBodydata = formBody.join("&");
+        console.log("done");
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+            body: formBodydata
+        };
+        fetch('http://192.168.8.100:8080/demo_war/useractive', requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                if(data.result == '"active Success"'){
+                    Alert.alert(
+                        "Message",
+                        "User Actived Successfully",
+                        [
+                          { text: "OK" }
+                        ]
+                      );
+                }
+                else {
+                    Alert.alert(
+                        "Message",
+                        "User Actived Failed",
+                        [
+                          { text: "OK" }
+                        ]
+                      );
+                }
+            })
+            .catch(e => console.log(e))
+    }
+
+    const userdelete = async (id) => {
+        var details = {
+            'userid':id
+        };
+        var formBody = [];
+        for (var property in details) {
+            var encodedKey = encodeURIComponent(property);
+            var encodedValue = encodeURIComponent(details[property]);
+            formBody.push(encodedKey + "=" + encodedValue);
+        }
+        let formBodydata = formBody.join("&");
+        console.log("done");
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+            body: formBodydata
+        };
+        fetch('http://192.168.8.100:8080/demo_war/userdelete', requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                if(data.result == '"Delete Success"'){
+                    Alert.alert(
+                        "Message",
+                        "User Delete Successfully",
+                        [
+                          { text: "OK" }
+                        ]
+                      );
+                }
+                else {
+                    Alert.alert(
+                        "Message",
+                        "User Delete Failed",
+                        [
+                          { text: "OK" }
+                        ]
+                      );
+                }
+            })
+            .catch(e => console.log(e))
+    }
     return (
         <View style={{ flex: 1 }}>
             <StatusBar translucent backgroundColor="rgba(0,0,0,0)" />
@@ -39,28 +219,6 @@ const adminUserManagement = () => {
                         {/* <Icon name="person" size={35} style={{ paddingTop: 0, color: 'white' }} /> */}
                     </View>
                     <Hedding style={{ color: 'orange', fontWeight: 'bold', fontSize: 40, padding: 30 }}>User Management</Hedding>
-                    {/*sub heading and desc*/}
-                    
-                    
-                    
-{/*
-                    <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white', paddingTop: 10, marginBottom: 10, textAlign: 'left' }}>Add Feature 01 Name here :</Text>
-
-                */}                          
-                    
-                    {/*
-                    <View style={styles.row}>
-                        <View style={styles.inputWrap}>
-                            <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white', paddingTop: 30, paddingLeft: 20, textAlign: 'left' }}>Feature 1 :</Text>
-                        </View>
-                        <View style={styles.inputWrapText}>
-                            <TextInput
-                                style={styles.input}
-                                placeholder='eg. som' />
-                        </View>
-                    </View>
-                    */}
-                    {/* table header */}
                     <View style={styles.row}>
                         <View style={styles.inputWrap}>
                             <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white', paddingTop: 10, paddingLeft: -30, textAlign: 'center' }}>List of Users</Text>
@@ -68,41 +226,8 @@ const adminUserManagement = () => {
                         <View style={styles.inputWrap}>
                             <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white', paddingTop: 10, paddingLeft: -40, textAlign: 'center' }}>Actions</Text>
                         </View>
-                       
-                        
-                        
-                        
-                        
-                    </View>
-                   
-                   {/* table header ends */}
-
-                    {/* table body */}
-                    <View style={styles.row}>
-                        <View style={styles.inputWrap}>
-                            <Text style={{ fontSize: 18, color: 'white', paddingTop: 10, paddingLeft: 20, textAlign: 'center' }}>1.Saman</Text>
-                        </View>
-                        <TouchableOpacity>
-                            <Text style={styles.textButtonbanned}>
-                                   Banned 
-                            </Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                            <Text style={styles.textButtonactive}>
-                                   Active 
-                            </Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                            <Text style={styles.textButtondelete}>
-                                   Delete 
-                            </Text>
-                        </TouchableOpacity>
-                        
-                    
-                    </View>
-                   {/* table body ends */}
-
-                   
+                   </View>
+                   {displayNumber()}       
                 </SafeAreaView>
             </ImageBackground>
         </View>
@@ -140,7 +265,8 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingLeft: -15,
         padding: -8,
-        marginLeft: -10
+        marginLeft: -70,
+        justifyContent: 'center'
     },
     
 

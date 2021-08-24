@@ -11,19 +11,21 @@
   },
   "dependencies": {
     "@material-ui/icons": "^4.11.2",
+    "@payhere/payhere-mobilesdk-reactnative": "1.2.0",
     "@react-navigation/native": "^5.9.4",
     "@react-navigation/stack": "^5.14.5",
+    "babel-preset-expo": "^8.4.1",
     "formik": "^2.2.8",
     "react": "17.0.1",
     "react-native": "0.64.0",
+    "react-native-dotenv": "^3.2.0",
     "react-native-dropdown-picker": "^5.1.19",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-material-dropdown": "^0.11.1",
     "react-native-modal-dropdown": "github:siemiatj/react-native-modal-dropdown",
     "react-native-safe-area-context": "^3.2.0",
     "react-native-screens": "^3.2.0",
-    "styled-components": "^5.3.0",
-    "@payhere/payhere-mobilesdk-reactnative": "1.2.0"
+    "styled-components": "^5.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

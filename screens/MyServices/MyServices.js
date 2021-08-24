@@ -6,9 +6,10 @@ import bgImage from '../../assets/img/bgi.jpg';
 import Hedding from '../../components/Hedding';
 const Home = props => {
     const { navigation, route } = props;
-    const { name,servicenames,serviceqty} = route.params;
+    // const { name } = route.params;
+    const name = 'mahesh';
     const [servicenametemp, setServicenametemp] = useState([])
-    // const [serviceqty, setserviceqty] = useState([])
+    const [serviceqty, setserviceqty] = useState([])
     const cartdata = async () => {
         var details = {
             'name': name
@@ -30,6 +31,7 @@ const Home = props => {
             .then(response => response.json())
             .then(data => {
                 setServicenametemp(JSON.parse(data.servicenames));
+                setserviceqty(JSON.parse(data.serviceqty));
             })
             .catch(e => console.log(e))
     }
