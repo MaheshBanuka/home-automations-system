@@ -13,7 +13,8 @@ import Hedding from '../../components/Hedding';
 import bgImage from '../../assets/img/adminWelcome.jpg';
 const adminWelcome = props => {
     const { navigation, route } = props;
-    const { name } = route.params;
+    // const { name } = route.params;
+    let name = "banuka";
     return (
         <View style={{ flex: 1 }}>
             <StatusBar translucent backgroundColor="rgba(0,0,0,0)" />
@@ -27,7 +28,7 @@ const adminWelcome = props => {
                     }}>
                         {/* <Icon name="arrow-back" size={28} style={{ paddingTop: 0, marginLeft: 5, color: 'white' }} /> */}
                         <Text style={{ fontSize: 20, fontWeight: 'bold', paddingLeft: -50, color: 'white', paddingTop: 0 }}>Back</Text>
-                        <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 170, color: 'white', paddingTop: 0 }}>Admin</Text>
+                        <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 170, color: 'white', paddingTop: 0 }}>{name}</Text>
                         {/* <Icon name="person" size={35} style={{ paddingTop: 0, color: 'white' }} /> */}
                     </View>
                     <Hedding style={{ color: 'white', fontSize: 40, fontWeight: 'bold', padding: 40, paddingTop: 150 }}>Welcome!</Hedding>
@@ -45,7 +46,13 @@ const adminWelcome = props => {
                                 User Management
                             </Text>
                         </TouchableOpacity>
-
+                    </View>
+                    <View style={styles.containerButton}>
+                        <TouchableOpacity onPress={() => { navigation.navigate('AdminOrderManagement',{name: name}); }}>
+                            <Text style={styles.textButton}>
+                                Order Management
+                            </Text>
+                        </TouchableOpacity>
                     </View>
                 </SafeAreaView>
             </ImageBackground>

@@ -16,7 +16,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 // import Icon from 'react-native-vector-icons/MaterialIcons';
 import Hedding from '../../components/Hedding';
 import bgImage from '../../assets/img/adminService.jpg';
-const adminService = props => {
+const orderManagement = props => {
     const { navigation, route } = props;
     const { name } = route.params;
     return (
@@ -38,20 +38,19 @@ const adminService = props => {
                     <Hedding style={{ color: 'white', fontSize: 40, fontWeight: 'bold', padding: 40, paddingTop: 150 }}>Service Management</Hedding>
 
                     <View style={styles.containerButton}>
-                        <TouchableOpacity onPress={() => { navigation.navigate('Dashbord',{name: name}); }}>
+                        <TouchableOpacity onPress={() => { navigation.navigate('AdminOrderDetails',{name: name}); }}>
                             <Text style={styles.textButton}>
-                                View Existing Services
+                                View Ongoing Orders
                             </Text>
                         </TouchableOpacity>
 
                     </View>
                     <View style={styles.containerButton}>
-                        <TouchableOpacity onPress={() => { navigation.navigate('adminServiceUpdate',{name: name}); }}>
+                        <TouchableOpacity onPress={() => { navigation.navigate('AdminAllOrder',{name:name}); }}>
                             <Text style={styles.textButtonupdate}>
-                                Update Services
+                            View All Orders
                             </Text>
                         </TouchableOpacity>
-
                     </View>
                 </SafeAreaView>
             </ImageBackground>
@@ -156,7 +155,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
     }
 });
-export default adminService;
+export default orderManagement;
 
 
 

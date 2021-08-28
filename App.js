@@ -23,8 +23,11 @@ import Dashbord from './screens/Dashbord/Dashbord';
 import Seeker from './screens/Seeker';
 import cart from './screens/cart/cart';
 import EditFeature from './screens/EditFeature/EditFeature';
+import AdminAllOrder from './screens/AdminAllOrder/AdminAllOrder';
+import AdminOrderDetails from './screens/AdminOrderDetails/AdminOrderDetails';
 import Renamefe from './screens/EditFeature/Rename';
 import adminAddService from './screens/adminAddService/adminAddService';
+import AdminOrderManagement from './screens/AdminOrderManagement/AdminOrderManagement';
 import adminService from './screens/adminService/adminService';
 import adminServiceUpdate from './screens/adminServiceUpdate/adminServiceUpdate';
 import adminUserManagement from './screens/adminUserManagement/adminUserManagement';
@@ -37,7 +40,21 @@ const Stack = createStackNavigator();
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={'login'}>
+      <Stack.Navigator initialRouteName={'adminWelcome'}>
+      <Stack.Screen
+          name="AdminAllOrder"
+          component={AdminAllOrder}
+          options={{
+            headerShown: false,
+          }}
+        />
+      <Stack.Screen
+          name="AdminOrderManagement"
+          component={AdminOrderManagement}
+          options={{
+            headerShown: false,
+          }}
+        />
       <Stack.Screen
           name="Renamefe"
           component={Renamefe}
@@ -80,13 +97,13 @@ const App = () => {
             headerShown: false,
           }}
         />
-        {/* <Stack.Screen
-          name="Splash"
-          component={Splash}
+        <Stack.Screen
+          name="AdminOrderDetails"
+          component={AdminOrderDetails}
           options={{
             headerShown: false,
           }}
-        /> */}
+        />
         <Stack.Screen
           name="DoorControl"
           component={DoorControl}

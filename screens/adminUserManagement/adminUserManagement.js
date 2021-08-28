@@ -14,10 +14,11 @@ import DropDownPicker from 'react-native-dropdown-picker';
 // import Icon from 'react-native-vector-icons/MaterialIcons';
 import Hedding from '../../components/Hedding';
 import bgImage from '../../assets/img/adminUserManagement.jpg';
-const adminUserManagement = () => {
+const adminUserManagement = props => {
+    const { navigation, route } = props;
     const [username, setUsername] = useState([])
     const [userid, setUserid] = useState([])
-
+    const { name } = route.params;
     const userdata = async () => {
         var details = {
         };
@@ -215,7 +216,7 @@ const adminUserManagement = () => {
                     }}>
                         {/* <Icon name="arrow-back" size={28} style={{ paddingTop: 0, marginLeft: 5, color: 'white' }} /> */}
                         <Text style={{ fontSize: 20, fontWeight: 'bold', paddingLeft: -50, color: 'white', paddingTop: 0 }}>Back</Text>
-                        <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 170, color: 'white', paddingTop: 0 }}>Admin</Text>
+                        <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 170, color: 'white', paddingTop: 0 }}>{name}</Text>
                         {/* <Icon name="person" size={35} style={{ paddingTop: 0, color: 'white' }} /> */}
                     </View>
                     <Hedding style={{ color: 'orange', fontWeight: 'bold', fontSize: 40, padding: 30 }}>User Management</Hedding>

@@ -46,16 +46,13 @@ const AdminOrderDetails = props => {
             headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
             body: formBodydata
         };
-        fetch('http://192.168.8.100:8080/demo_war/notcomorder', requestOptions)
+        fetch('http://192.168.8.100:8080/demo_war/orderdet', requestOptions)
             .then(response => response.json())
             .then(data => {
-                console.log(data)
                 setUserid(JSON.parse(data.userid));
                 setOrderid(JSON.parse(data.orderid));
                 setOrderDate(JSON.parse(data.orderdates));
-                if (data.name === "banuka") {
-                    console.log(data.name);
-                }
+                setOrderstatus(JSON.parse(data.orderstatus));
             })
             .catch(e => console.log(e))
     }
@@ -65,7 +62,6 @@ const AdminOrderDetails = props => {
     }, [])
 
     const comorder = async (orderid) => {
-        // console.log('kjh'qty)
         var details = {
             'orderid': orderid
         };
@@ -125,7 +121,7 @@ const AdminOrderDetails = props => {
                             <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 170, color: 'white', paddingTop: 0 }}>{name}</Text>
                             {/* <Icon name="person" size={35} style={{ paddingTop: 0, color: 'white' }} /> */}
                         </View>
-                        <Hedding style={{ color: 'orange', fontWeight: 'bold', fontSize: 40 }}>Orders</Hedding>
+                        <Hedding style={{ color: 'orange', fontWeight: 'bold', fontSize: 40 }}>All Orders</Hedding>
                         <View style={styles.row}>
                             <View style={styles.inputWrap}>
                                 <Text style={{ fontSize: 18, fontWeight: 'bold', color: 'white', paddingTop: 10, paddingLeft: 30, textAlign: 'center' }}>User ID</Text>
@@ -137,7 +133,7 @@ const AdminOrderDetails = props => {
                                 <Text style={{ fontSize: 18, fontWeight: 'bold', color: 'white', paddingRight: 20, paddingTop: 10, paddingLeft: 70, textAlign: 'center' }}>Order Date</Text>
                             </View>
                             <View style={styles.inputWrap}>
-                                <Text style={{ fontSize: 18, fontWeight: 'bold', color: 'white', paddingRight: 20, paddingTop: 10, paddingLeft: 40, textAlign: 'right' }}>Action</Text>
+                                <Text style={{ fontSize: 18, fontWeight: 'bold', color: 'white', paddingRight: 20, paddingTop: 10, paddingLeft: 40, textAlign: 'right' }}>Status</Text>
                             </View>
                         </View>
                         <View style={styles.row}>
@@ -158,16 +154,8 @@ const AdminOrderDetails = props => {
                                 })}
                             </View>
                             <View style={styles.inputWrap}>
-                                {orderdate.map((item, index) => {
-                                    return (
-                                        <TouchableOpacity style={{ textAlign: 'right', marginRight: -20, paddingLeft: 20}}
-                                            onPress={() => { comorder(orderid[index]) }}>
-                                            {/* // onPress={() => { console.log(orderid[index]) }}>  */}
-                                            <Text style={styles.textButtonremove}>
-                                                Completed
-                                            </Text>
-                                        </TouchableOpacity>
-                                    )
+                                {orderstatus.map((item, index) => {
+                                    return (<Text key={index} style={{ fontSize: 18, color: 'white', paddingTop: 20, paddingBottom: 15, paddingLeft: 60, textAlign: 'center' }}>{item}</Text>)
                                 })}
                             </View>
                         </View>

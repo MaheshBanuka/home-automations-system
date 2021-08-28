@@ -16,14 +16,14 @@ import Hedding from '../../components/Hedding';
 import bgImage from '../../assets/img/adminUserManagement.jpg';
 const adminAddService  = props => {
     const { navigation, route } = props;
-    const { servicename,serviceid,servicecost } = route.params;
-    const [name, setName] = useState(servicename);
+    const { name,servicename,serviceid,servicecost } = route.params;
+    const [nameu, setNameu] = useState(servicename);
     const [cost, setCost] = useState(servicecost);
 
     const update = async () => {
         var details = {
             'id': serviceid,
-            'name': name,
+            'name': nameu,
             'cost': cost
         };
         var formBody = [];
@@ -48,7 +48,7 @@ const adminAddService  = props => {
                         "Message",
                         "Service Details Updated",
                         [
-                          { text: "OK", onPress: () => navigation.navigate('adminServiceUpdate') }
+                          { text: "OK", onPress: () => navigation.navigate('adminServiceUpdate',{name: name}) }
                         ]
                       ); 
                 }
@@ -68,13 +68,11 @@ const adminAddService  = props => {
                     }}>
                         {/* <Icon name="arrow-back" size={28} style={{ paddingTop: 0, marginLeft: 5, color: 'white' }} /> */}
                         <Text style={{ fontSize: 20, fontWeight: 'bold', paddingLeft: -50, color: 'white', paddingTop: 0 }}>Back</Text>
-                        <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 170, color: 'white', paddingTop: 0 }}>Admin</Text>
+                        <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 170, color: 'white', paddingTop: 0 }}>{name}</Text>
                         {/* <Icon name="person" size={35} style={{ paddingTop: 0, color: 'white' }} /> */}
                     </View>
                     <Hedding style={{ color: 'orange', }}>Service Management</Hedding>
-                    <Text style={{ color: 'white', fontSize: 16, justifyContent: 'center', alignItems: 'center', textAlign: 'center', padding: 10, paddingLeft: 90 }}>
-                        Update Service
-                    </Text>
+                    
                     <View style={styles.extraText}>
                         <Text style={styles.extraTextTo}>────────────────────</Text>
                     </View>
@@ -96,8 +94,8 @@ const adminAddService  = props => {
                             <TextInput
                                 style={styles.input}
                                 placeholder={servicename}
-                                value={name}
-                                onChangeText={value => setName(value)}
+                                value={nameu}
+                                onChangeText={value => setNameu(value)}
                             />
                         </View>
                     </View>

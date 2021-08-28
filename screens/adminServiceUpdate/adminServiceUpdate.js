@@ -6,17 +6,14 @@ import {
     StatusBar,
     SafeAreaView,
     StyleSheet,
-    Text,
-    ScrollView,
-    TextInput,
-    Slider,
-    Modal
+    Text
 } from 'react-native';
 // import Icon from 'react-native-vector-icons/MaterialIcons';
 import Hedding from '../../components/Hedding';
 import bgImage from '../../assets/img/adminUserManagement.jpg';
 const adminServiceUpdate = props => {
-    const { navigation } = props;
+    const { navigation,route } = props;
+    const { name } = route.params;
     const [servicename, setServicename] = useState([])
     const [serviceid, setServieid] = useState([])
     const [servicecost, setServiecost] = useState([])
@@ -59,7 +56,7 @@ const adminServiceUpdate = props => {
                     <View key={i+1} style={styles.inputWrap}>
                         <Text key={i+2} style={{ fontSize: 18, color: 'white', paddingTop: 10, paddingRight: 0, textAlign: 'center',paddingLeft: 20 }}>{servicename[i]}</Text>
                     </View>
-                    <TouchableOpacity key={i+3} onPress={() => { navigation.navigate('adminAddService',{servicename:servicename[i],serviceid:serviceid[i],servicecost:servicecost[i]}); }}>
+                    <TouchableOpacity key={i+3} onPress={() => { navigation.navigate('adminAddService',{name: name,servicename:servicename[i],serviceid:serviceid[i],servicecost:servicecost[i]}); }}>
                         <Text key={i+4} style={styles.textButtonupdate}>
                             Update
                         </Text>
@@ -82,7 +79,7 @@ const adminServiceUpdate = props => {
                     }}>
                         {/* <Icon name="arrow-back" size={28} style={{ paddingTop: 0, marginLeft: 5, color: 'white' }} /> */}
                         <Text style={{ fontSize: 20, fontWeight: 'bold', paddingLeft: -50, color: 'white', paddingTop: 0 }}>Back</Text>
-                        <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 170, color: 'white', paddingTop: 0 }}>Admin</Text>
+                        <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 170, color: 'white', paddingTop: 0 }}>{name}</Text>
                         {/* <Icon name="person" size={35} style={{ paddingTop: 0, color: 'white' }} /> */}
                     </View>
                     <Hedding style={{ color: 'orange', fontWeight: 'bold', fontSize: 40, padding: 30 }}>Service Management</Hedding>
