@@ -26,7 +26,8 @@ const Lightonoff = props => {
                 <Text style={{ fontSize: 20, color: 'white', fontWeight: 'bold' }}>{value[i]}</Text>
                         <View key={i+4} style={{ width: '100%', flex: 1, marginBottom: 20, marginLeft: 5,alignItems: 'flex-end', }}>
                             <TouchableOpacity key={i+5}
-                                onPress={() => { navigation.navigate('Renamefe',{name: name}); }}
+                                onPress={() => { navigation.navigate('Renamefe',{name: name, index:i, value:value, feid:feid[i]}); }}
+                                // onPress={() => { console.log(feid[i]) }}
                                 style={[styles.btn,]}>
                                 <Text style={{ fontSize: 20 }}>Edit</Text>
                             </TouchableOpacity>
@@ -51,7 +52,7 @@ const Lightonoff = props => {
                     }}>
                         {/* <Icon name="arrow-back" size={28} style={{ paddingTop: 0, marginLeft: 5, color: 'white' }} /> */}
                         <Text style={{ fontSize: 20, fontWeight: 'bold', paddingLeft: -50, color: 'white', paddingTop: 0 }}>Back</Text>
-                        <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 170, color: 'white', paddingTop: 0 }}>Username</Text>
+                        <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 170, color: 'white', paddingTop: 0 }}>{name}</Text>
                         {/* <Icon name="person" size={35} style={{ paddingTop: 0, color: 'white' }} /> */}
                     </View>
                     <Hedding style={{ color: 'white', }}>Edit Feature Names</Hedding>

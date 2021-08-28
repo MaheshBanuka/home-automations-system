@@ -9,7 +9,7 @@ import {
   Linking,
   Dimensions,
 } from 'react-native';
-
+// import { SMTPClient,emailjs } from 'emailjs';
 import SubmitButton from '../../components/SubmitButton';
 import Hedding from '../../components/Hedding';
 import ViewTextInput from '../../components/ViewTextInput';
@@ -18,6 +18,29 @@ const ResetPassword = props => {
   const { navigation } = props;
   const [tripId, setTripId] = useState('');
   const [userId, setUserId] = useState('');
+
+  // const client = new SMTPClient({
+  //   user: 'banukahomeauto',
+  //   password: 'banuka@cd125',
+  //   host: 'smtp.banukahomeauto@gmail.com',
+  //   ssl: true,
+  // });
+  
+  // send the message and get a callback with an error or details of the message that was sent
+  // const send = () => {
+  // client.send(
+  //   {
+  //     text: 'i hope this works',
+  //     from: 'banukahomeauto@gmail.com',
+  //     to: 'banuka2012@gmail.com',
+  //     cc: '',
+  //     subject: 'testing emailjs',
+  //   },
+  //   (err, message) => {
+  //     console.log(err || message);
+  //   }
+  // );
+  // }
   return (
 
     <SafeAreaView style={{ backgroundColor: 'white' }}>
@@ -88,7 +111,11 @@ const ResetPassword = props => {
         </Text>
         <Text>To Send Code Again</Text>
           </Text>
-          <SubmitButton>Reset Password</SubmitButton>
+          <SubmitButton onPress={async () => {
+              await send();
+              // navigation.navigate('Dashbord');
+              // navigation.navigate('Dashbord', {name: name});
+            }}>Reset Password</SubmitButton>
         </View>
       </View>
     </SafeAreaView>

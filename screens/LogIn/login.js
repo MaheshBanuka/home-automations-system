@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   View,
   Text,
@@ -7,7 +7,10 @@ import {
   SafeAreaView,
   TextInput,
   Dimensions,
-  Alert
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView
 } from 'react-native';
 
 import SubmitButton from '../../components/SubmitButton';
@@ -16,14 +19,17 @@ import ViewTextInput from '../../components/ViewTextInput';
 import { async } from 'node-stream-zip';
 
 const login = props => {
-  
+
   const { navigation } = props;
-  const [name, setName] = useState('');
+  // const [name, setName] = useState('');
   const [nameu, setNameu] = useState('');
   const [responsedata, setResponsedata] = useState([]);
-  const [password, setPassword] = useState('');
-
+  const [password, setPassword] = useState('123');
+  const passwordRef = useRef();
+  const name='mahesh'
   const loginHandler = async () => {
+    // console.log('jhghj');
+    navigation.navigate('Dashbord', { name: name });
     var details = {
       'name': name,
       'password': password
@@ -45,9 +51,9 @@ const login = props => {
       .then(response => response.json())
       .then(data => {
         if (data.type === '"admin"' && data.status == '"active"') {
-          navigation.navigate('adminWelcome',{name: name});
+          navigation.navigate('adminWelcome', { name: name });
           // navigation.navigate('Dashbord');
-          
+
           // navigation.reset({
           //     index: 0,
           //     routes: [
@@ -58,10 +64,10 @@ const login = props => {
           //     ],
           //   });
         }
-        else if(data.type === '"user"' && data.status == '"active"'){
-          navigation.navigate('Dashbord', {name: name});
+        else if (data.type === '"user"' && data.status == '"active"') {
+          navigation.navigate('Dashbord', { name: name });
         }
-        else if(data.type === '"user"' && data.status == '"banned"'){
+        else if (data.type === '"user"' && data.status == '"banned"') {
           Alert.alert(
             "Message",
             "User Banned Plese Contact Administrator",
@@ -70,7 +76,7 @@ const login = props => {
             ]
           );
         }
-        else if(data.type === '"admin"' && data.status == '"banned"'){
+        else if (data.type === '"admin"' && data.status == '"banned"') {
           Alert.alert(
             "Message",
             "User Banned Please Contact Administrator",
@@ -79,7 +85,7 @@ const login = props => {
             ]
           );
         }
-        else{
+        else {
           Alert.alert(
             "Message",
             "User Login Failed",
@@ -92,80 +98,92 @@ const login = props => {
       .catch(e => console.log(e))
   }
   return (
+    <KeyboardAvoidingView behavior={(Platform.OS === 'ios' ? "padding" : null)} enabled keyboardVerticalOffset={200}>
 
-    <SafeAreaView style={{ backgroundColor: 'white' }}>
-      <View
-        style={{
-          marginTop: 20,
-          minHeight: Dimensions.get('window').height,
-          marginHorizontal: 10,
-          backgroundColor: 'white',
-        }}>
-        <View style={{ marginBottom: 10 }}>
-          <Image
-            style={{
-              width: 373,
-              height: 280,
-              borderRadius: 30,
-              borderWidth: 10,
-            }}
-            source={require('../../assets/img/img.jpg')}
-          />
-        </View>
-        <View>
-          <Hedding style={{ fontSize: 30, }}>Welcome!</Hedding>
-        </View>
-        <View>
+      <SafeAreaView style={{ backgroundColor: 'white' }}>
+
+        <ScrollView
+          style={{
+            marginTop: 20,
+            minHeight: Dimensions.get('window').height,
+            marginHorizontal: 10,
+            backgroundColor: 'white',
+          }}>
           <View style={{ marginBottom: 10 }}>
-            <Text>Email Address</Text>
-          </View>
-          <ViewTextInput>
-            <TextInput
-              value={name}
-              onChangeText={value => setName(value)}
-              style={{ paddingLeft: 20 }}
-              placeholder={'Email Address'}
+            <Image
+              style={{
+                width: 373,
+                height: 280,
+                borderRadius: 30,
+                borderWidth: 10,
+              }}
+              source={require('../../assets/img/img.jpg')}
             />
-          </ViewTextInput>
-          <View style={{ marginBottom: 10 }}>
-            <Text>Password</Text>
           </View>
-          <ViewTextInput>
-            <TextInput
-              value={password}
-              onChangeText={value => setPassword(value)}
-              style={{ paddingLeft: 20 }}
-              secureTextEntry
-              placeholder={'Password'}
-            />
-          </ViewTextInput>
-          <Text style={{
-            fontSize: 12,
-            textAlign: 'center',
-            padding: 10,
-          }}>foget Password?<Text style={{ color: 'blue' }}
-            onPress={() => {
-              navigation.navigate('ResetPassword');
-            }}>
-              Click here
+          <View>
+            <Hedding style={{ fontSize: 30, }}>Welcome!</Hedding>
+          </View>
+
+          <View>
+            <View style={{ marginBottom: 10 }}>
+              <Text>User Name</Text>
+            </View>
+            <ViewTextInput>
+              <TextInput
+                value={name}
+                onChangeText={value => setName(value)}
+                style={{ paddingLeft: 20 }}
+                placeholder={'User Name'}
+                returnKeyType='next'
+                onSubmitEditing={() => {
+                  passwordRef.current.focus();
+
+                }}
+              />
+            </ViewTextInput>
+            <View style={{ marginBottom: 10 }}>
+              <Text>Password</Text>
+            </View>
+            <ViewTextInput>
+              <TextInput
+                ref={passwordRef}
+                value={password}
+                onChangeText={value => setPassword(value)}
+                style={{ paddingLeft: 20 }}
+                secureTextEntry
+                placeholder={'Password'}
+              />
+            </ViewTextInput>
+            <Text style={{
+              fontSize: 12,
+              textAlign: 'center',
+              padding: 10,
+            }}>foget Password?<Text style={{ color: 'blue' }}
+              onPress={() => {
+                navigation.navigate('ResetPassword');
+              }}>
+                Click here
         </Text>
-          </Text>
-          <SubmitButton onPress={async () => {
-            await loginHandler();
-            // navigation.navigate('Dashbord');
-            // navigation.navigate('Dashbord', {name: name});
-          }}>Login</SubmitButton>
-          <Text style={{
-            fontSize: 12,
-            textAlign: 'center',
-            padding: 10,
-          }}>────────  or  ────────</Text>
-          <SubmitButton onPress={() => {
-            navigation.navigate('Signup');
-          }}>Sign UP</SubmitButton>
-        </View>
-      </View>
-    </SafeAreaView>
+            </Text>
+            <SubmitButton onPress={async () => {
+              await loginHandler();
+              // navigation.navigate('Dashbord');
+              // navigation.navigate('Dashbord', {name: name});
+            }}>Login</SubmitButton>
+            <Text style={{
+              fontSize: 12,
+              textAlign: 'center',
+              padding: 10,
+            }}>────────  or  ────────</Text>
+            <SubmitButton onPress={() => {
+              // navigation.navigate('Signup');
+              email()
+            }}>Sign UP</SubmitButton>
+          </View>
+        </ScrollView>
+
+      </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 };
 

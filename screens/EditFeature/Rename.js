@@ -8,18 +8,55 @@ import {
     StyleSheet,
     Text,
     TextInput,
-    Slider,
+    Alert,
     Modal
 } from 'react-native';
-import { ModalPicker } from '../../components/ModalPicker'
-import DropDownPicker from 'react-native-dropdown-picker';
 // import Icon from 'react-native-vector-icons/MaterialIcons';
 import Hedding from '../../components/Hedding';
-import bgImage from '../../assets/img/adminService.jpg';
-const adminService = props => {
+import bgImage from '../../assets/img/adminUserManagement.jpg';
+const Rename  = props => {
     const { navigation, route } = props;
-    // const { name } = route.params;
-    const name = 'mahesh';
+    const { name,index,value,feid } = route.params;
+    const [fvalue, setFvalue] = useState(value);
+    const [fname, setFname] = useState(value[index]);
+    const [id, setId] = useState(feid);
+
+    const update = async () => {
+        var details = {
+            'fid': id,
+            'fname': fname
+        };
+        var formBody = [];
+        for (var property in details) {
+            var encodedKey = encodeURIComponent(property);
+            var encodedValue = encodeURIComponent(details[property]);
+            formBody.push(encodedKey + "=" + encodedValue);
+        }
+        let formBodydata = formBody.join("&");
+        // console.log("pressed");
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+            body: formBodydata
+        };
+        fetch('http://192.168.8.100:8080/demo_war/ferename', requestOptions)
+            // .then(response=>console.log(response._bodyBlob))
+            .then(response => response.json())
+            .then(data => {
+                if (data.response === "Service Details Updated") {
+                    fvalue[index]=fname;
+                    // console.log(fvalue[index])
+                    Alert.alert(
+                        "Message",
+                        "Feature Details Updated",
+                        [
+                          { text: "OK", onPress: () => navigation.navigate('EditFeature',{value:fvalue}) }
+                        ]
+                      ); 
+                }
+            })
+            .catch(e => console.log(e))
+    }
     return (
         <View style={{ flex: 1 }}>
             <StatusBar translucent backgroundColor="rgba(0,0,0,0)" />
@@ -33,26 +70,46 @@ const adminService = props => {
                     }}>
                         {/* <Icon name="arrow-back" size={28} style={{ paddingTop: 0, marginLeft: 5, color: 'white' }} /> */}
                         <Text style={{ fontSize: 20, fontWeight: 'bold', paddingLeft: -50, color: 'white', paddingTop: 0 }}>Back</Text>
-                        <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 170, color: 'white', paddingTop: 0 }}>Admin</Text>
+                        <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 170, color: 'white', paddingTop: 0 }}>{name}</Text>
                         {/* <Icon name="person" size={35} style={{ paddingTop: 0, color: 'white' }} /> */}
                     </View>
-                    <Hedding style={{ color: 'white', fontSize: 40, fontWeight: 'bold', padding: 40, paddingTop: 150 }}>Service Management</Hedding>
-
-                    <View style={styles.containerButton}>
-                        
-                            <Text style={styles.textButton}>
-                                View Existing Services
-                            </Text>
-                        
-
+                    <Hedding style={{ color: 'orange', }}>Rename Feature</Hedding>
+                    {/* <Text style={{ color: 'white', fontSize: 16, justifyContent: 'center', alignItems: 'center', textAlign: 'center', padding: 10, paddingLeft: 90 }}>
+                        Update Service
+                    </Text> */}
+                    <View style={styles.extraText}>
+                        <Text style={styles.extraTextTo}>────────────────────</Text>
+                    </View>
+                    <View style={styles.row}>
+                        <View style={styles.inputWrap}>
+                            <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white', paddingTop: 30, paddingLeft: 30, textAlign: 'left' }}>Service ID :</Text>
+                        </View>
+                        <View style={styles.inputWrapText}>
+                            <TextInput
+                                style={styles.input}
+                                value={''+id}
+                            />
+                        </View>
+                    </View>
+                    <View style={styles.row}>
+                        <View style={styles.inputWrap}>
+                            <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white', paddingTop: 30, paddingLeft: 30, textAlign: 'left' }}>Service Name :</Text>
+                        </View>
+                        <View style={styles.inputWrapText}>
+                            <TextInput
+                                style={styles.input}
+                                placeholder={fname}
+                                value={fname}
+                                onChangeText={value => setFname(value)}
+                            />
+                        </View>
                     </View>
                     <View style={styles.containerButton}>
-                        <TouchableOpacity onPress={() => { navigation.navigate('adminServiceUpdate'); }}>
-                            <Text style={styles.textButtonupdate}>
+                        <TouchableOpacity onPress = {() => {update() }}>
+                            <Text style={styles.textButtonUpdate}>
                                 Update Services
                             </Text>
                         </TouchableOpacity>
-
                     </View>
                 </SafeAreaView>
             </ImageBackground>
@@ -134,30 +191,40 @@ const styles = StyleSheet.create({
 
 
     },
-    textButton: {
-        padding: 15,
+    textButtonAdd: {
+        padding: 10,
         backgroundColor: 'orange',
-        borderRadius: 28,
+        borderRadius: 15,
         color: 'white',
         fontWeight: 'bold',
-        width: 370,
-        paddingLeft: 100,
+        width: 200,
+        paddingLeft: 80,
         fontSize: 20,
+        marginLeft: 170,
 
     },
+    containerButtonUpdate: {
+        marginTop: 10,
+        alignItems: 'center',
+        alignContent: 'center',
+        paddingTop: 160,
 
-    textButtonupdate: {
-        padding: 15,
-        backgroundColor: 'orange',
-        borderRadius: 28,
+
+    },
+    textButtonUpdate: {
+        padding: 10,
+        backgroundColor: '#1E90FF',
+        borderRadius: 15,
         color: 'white',
         fontWeight: 'bold',
-        width: 370,
-        paddingLeft: 120,
+        width: 270,
+        paddingLeft: 70,
         fontSize: 20,
+        marginLeft: 100,
+
     }
 });
-export default adminService;
+export default Rename;
 
 
 

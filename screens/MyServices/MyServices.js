@@ -6,8 +6,8 @@ import bgImage from '../../assets/img/bgi.jpg';
 import Hedding from '../../components/Hedding';
 const Home = props => {
     const { navigation, route } = props;
-    // const { name } = route.params;
-    const name = 'mahesh';
+    const { name } = route.params;
+    // const name = 'mahesh';
     const [servicenametemp, setServicenametemp] = useState([])
     const [serviceqty, setserviceqty] = useState([])
     const cartdata = async () => {
@@ -51,11 +51,11 @@ const Home = props => {
                     }}>
                         {/* <Icon name="arrow-back" size={28} style={{paddingTop: 30, marginLeft: 5, color: 'white'}} /> */}
                         <TouchableOpacity onPress={() => {
-                            navigation.navigate('login');
+                            navigation.navigate('Dashbord');
                         }}>
                             <Text style={{ fontSize: 20, fontWeight: 'bold', paddingLeft: -50, color: 'white', paddingTop: 30 }}>Back</Text>
                         </TouchableOpacity>
-                        {/* <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 150, color: 'white', paddingTop: 30 }}>{name}</Text> */}
+                        <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 150, color: 'white', paddingTop: 30 }}>{name}</Text>
                         {/* <Icon name="person" size={35} style={{paddingTop: 30, color: 'white'}} />   */}
                     </View>
                     <Hedding style={{ color: 'white', }}>

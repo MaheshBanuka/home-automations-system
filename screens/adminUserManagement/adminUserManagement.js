@@ -52,7 +52,7 @@ const adminUserManagement = () => {
             tempList.push(
                 <View style={styles.row}>
                         <View style={styles.inputWrap}>
-                            <Text style={{ fontSize: 18, color: 'white', paddingTop: 10, paddingLeft: 20, textAlign: 'center' }}>{i+1}.{username[i]}</Text>
+                            <Text style={{ fontSize: 18, color: 'white', paddingTop: 10, paddingLeft: 70, textAlign: 'auto' }}>{i+1}.{username[i]}</Text>
                         </View>
                         <TouchableOpacity onPress={() => { banneduser(userid[i]) }}>
                             <Text style={styles.textButtonbanned}>
