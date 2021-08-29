@@ -34,6 +34,9 @@ import adminUserManagement from './screens/adminUserManagement/adminUserManageme
 import adminWelcome from './screens/adminWelcome/adminWelcome';
 import getStarted from './screens/getStarted/getStarted';
 import MyServices from './screens/MyServices/MyServices';
+import MotionSensor from './screens/MotionSensor/MotionSensor';
+import SensorReport from './screens/SensorReport/SensorReport';
+import DoorDetector from './screens/DoorDetector/DoorDetector';
 
 const Stack = createStackNavigator();
 
@@ -41,6 +44,27 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName={'getStarted'}>
+      <Stack.Screen
+          name="DoorDetector"
+          component={DoorDetector}
+          options={{
+            headerShown: false,
+          }}
+        />
+      <Stack.Screen
+          name="SensorReport"
+          component={SensorReport}
+          options={{
+            headerShown: false,
+          }}
+        />
+      <Stack.Screen
+          name="MotionSensor"
+          component={MotionSensor}
+          options={{
+            headerShown: false,
+          }}
+        />
       <Stack.Screen
           name="AdminAllOrder"
           component={AdminAllOrder}

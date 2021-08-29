@@ -29,7 +29,7 @@ const Lightonoff = props => {
     const lightdim = async (id) => {
         var details = {
             'id': id,
-            'value': "dim"
+            'value': "On_D"
         };
         var formBody = [];
         for (var property in details) {
@@ -44,7 +44,7 @@ const Lightonoff = props => {
             headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
             body: formBodydata
         };
-        fetch('http://192.168.8.101:8080/demo_war/onoff', requestOptions)
+        fetch('http://192.168.8.100:8080/demo_war/onoff', requestOptions)
             // .then(response=>console.log(response._bodyBlob))
             .then(response => response.json())
             .then(data => {
@@ -58,7 +58,7 @@ const Lightonoff = props => {
     const lightldim = async (id) => {
         var details = {
             'id': id,
-            'value': "ldim"
+            'value': "Off_D"
         };
         var formBody = [];
         for (var property in details) {
@@ -73,7 +73,7 @@ const Lightonoff = props => {
             headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
             body: formBodydata
         };
-        fetch('http://192.168.8.101:8080/demo_war/onoff', requestOptions)
+        fetch('http://192.168.8.100:8080/demo_war/onoff', requestOptions)
             // .then(response=>console.log(response._bodyBlob))
             .then(response => response.json())
             .then(data => {
@@ -99,7 +99,7 @@ const Lightonoff = props => {
                                 marginRight: 5,
                             }}>
                             <TouchableOpacity key={i+3}
-                                onPress={() => lightdim(i)}
+                                onPress={() => lightdim(5)}
                                 style={[
                                     styles.btn,
                                     lightState === 'Close' ? styles.btnActivate : null,
@@ -110,7 +110,7 @@ const Lightonoff = props => {
                         <View key={i+4}
                             style={{ width: '100%', flex: 1, marginBottom: 20, marginLeft: 5 }}>
                             <TouchableOpacity key={i+5}
-                                onPress={() => lightldim(i)}
+                                onPress={() => lightldim(5)}
                                 style={[
                                     styles.btn,
                                     lightState === 'Close' ? styles.btnActivate : null,

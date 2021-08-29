@@ -25,97 +25,31 @@ const Lightonoff = props => {
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState([]);
     const [feid, setFeid] = useState([]);
-    const serid = 1;
-    const lightdim = async (id) => {
-        var details = {
-            'id': 2,
-            'value': "On_D"
-        };
-        var formBody = [];
-        for (var property in details) {
-            var encodedKey = encodeURIComponent(property);
-            var encodedValue = encodeURIComponent(details[property]);
-            formBody.push(encodedKey + "=" + encodedValue);
-        }
-        let formBodydata = formBody.join("&");
-        console.log(id);
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
-            body: formBodydata
-        };
-        fetch('http://192.168.8.100:8080/demo_war/onoff', requestOptions)
-            // .then(response=>console.log(response._bodyBlob))
-            .then(response => response.json())
-            .then(data => {
-                if (data.name === "banuka") {
-                    console.log(data.name);
-                }
-            })
-            .catch(e => console.log(e))
-    }
-
-    const lightldim = async (id) => {
-        var details = {
-            'id': 2,
-            'value': "Off_D"
-        };
-        var formBody = [];
-        for (var property in details) {
-            var encodedKey = encodeURIComponent(property);
-            var encodedValue = encodeURIComponent(details[property]);
-            formBody.push(encodedKey + "=" + encodedValue);
-        }
-        let formBodydata = formBody.join("&");
-        console.log(id);
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
-            body: formBodydata
-        };
-        fetch('http://192.168.8.100:8080/demo_war/onoff', requestOptions)
-            // .then(response=>console.log(response._bodyBlob))
-            .then(response => response.json())
-            .then(data => {
-                if (data.name === "banuka") {
-                    console.log(data.name);
-                }
-            })
-            .catch(e => console.log(e))
-    }
+    const serid = 7;
 
     const displayNumber = (number) => {
         let tempList = []
         for (let i = 0; i < number; i++) {
             tempList.push(
                 <View key = {i+6} style={{width:350}}>
-                <Text style={{ fontSize: 20, color: 'white', fontWeight: 'bold' }}>{value[i]}</Text>
+                {/* <Text style={{ fontSize: 20, color: 'white', fontWeight: 'bold' }}>{value[i]}</Text> */}
                 <View key={i+1} style={{ flexDirection: 'row' }}>
+                <Text style={{ fontSize: 20, color: 'white', fontWeight: 'bold' }}>{value[i]}</Text>
                         <View key={i+2}
                             style={{
                                 width: '100%',
                                 flex: 1,
                                 marginBottom: 20,
                                 marginRight: 5,
+                                paddingLeft: 40
                             }}>
                             <TouchableOpacity key={i+3}
-                                onPress={() => lightdim(i)}
+                                onPress={() => navigation.navigate('SensorReport', { name: name, feid:feid[i] })}
                                 style={[
                                     styles.btn,
                                     lightState === 'Close' ? styles.btnActivate : null,
                                 ]}>
-                                <Text style={{ fontSize: 20 }}>ON</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View key={i+4}
-                            style={{ width: '100%', flex: 1, marginBottom: 20, marginLeft: 5 }}>
-                            <TouchableOpacity key={i+5}
-                                onPress={() => lightldim(i)}
-                                style={[
-                                    styles.btn,
-                                    lightState === 'Close' ? styles.btnActivate : null,
-                                ]}>
-                                <Text style={{ fontSize: 20 }}>OFF</Text>
+                                <Text style={{ fontSize: 20 }}>View Report</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -172,7 +106,7 @@ const Lightonoff = props => {
                         <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 170, color: 'white', paddingTop: 0 }}>{name}</Text>
                         {/* <Icon name="person" size={35} style={{ paddingTop: 0, color: 'white' }} /> */}
                     </View>
-                    <Hedding style={{ color: 'white', }}>Light ON/OFF</Hedding>
+                    <Hedding style={{ color: 'white', }}>Door Detector</Hedding>
                     <View style={styles.extraText}>
                         <Text style={styles.extraTextTo}>────────────────────</Text>
                     </View>
@@ -183,17 +117,6 @@ const Lightonoff = props => {
                             Edit Feature
                             </Text>
                     </TouchableOpacity>
-                
-                    {/* <View>
-                        <Slider
-                            step={1}
-                            minimumValue={0}
-                            maximumValue={100}
-                            minimumTrackTintColor="#009688"
-                            onValueChange={(ChangedValue) => setGateNo(ChangedValue)}
-                            style={styles.slider}
-                        />
-                        </View> */}
                     {displayNumber(serviceqty)}
                 </SafeAreaView>
             </ImageBackground>

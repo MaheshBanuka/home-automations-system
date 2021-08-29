@@ -77,6 +77,12 @@ const Home = props => {
                             else if (item === "Door Lock/Unlock") {
                                 navigation.navigate('DoorControl', { name: name, serviceqty: serviceqty[index], index: index });
                             }
+                            else if (item === "Motion Sensor") {
+                                navigation.navigate('MotionSensor', { name: name, serviceqty: serviceqty[index], index: index });
+                            }
+                            else if (item === "Door Sensor") {
+                                navigation.navigate('DoorDetector', { name: name, serviceqty: serviceqty[index], index: index });
+                            }
                         }}>
                             <Text style={styles.item}>{item}</Text>
                         </TouchableOpacity>
