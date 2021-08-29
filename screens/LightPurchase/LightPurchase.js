@@ -35,6 +35,7 @@ const LightPurchase = props => {
         { label: '10', value: 10 },
         { label: 'Custom', value: 11 }
     ]);
+    // console.log(servicenum)
     const data = [{
         title: 'Light On/Off',
         dis: 'Having an automatic home light control system will let you turn the lights on and off with just a tap of a button. Choose a quanitity and name the features according to your reference .'
@@ -48,23 +49,23 @@ const LightPurchase = props => {
         dis: 'Feel the wind just the way you want it and access all your fans through fingertips'
     },
     {
-        title: 'Sensor',
-        dis: 'Feel afraid? Did anyone get in here? No. Not at all without you knowing. Sense every step within your area just through your fingertips.'
+        title: 'Door Lock/Unlock',
+        dis: 'Don"t give command or be commanded to Lock Unlock Door,do it with your mobile by fingertip.'
     },
     {
         title: 'Water Tank',
         dis: 'Don"t give command or be commanded to turn off and on the water tank and no wastage of water again. Control your water tank easily.'
     },
     {
-        title: 'Door Lock/Unlock',
-        dis: 'Don"t give command or be commanded to Lock Unlock Door,do it with your mobile by fingertip.'
-    }]
+        title: 'Motion Sensor',
+        dis: 'Feel afraid? Did anyone get in here? No. Not at all without you knowing. Sense every step within your area just through your fingertips.'
+    },
+    {
+        title: 'Door Sensor',
+        dis: 'Feel afraid? Did anyone get in here? No. Not at all without you knowing. Sense every step within your area just through your fingertips.'
+    }
+    ]
 
-    useEffect(() => {
-        for (let index = 0; index < 4; index++) {
-            <Hedding style={{ color: 'white', }}>{data[servicenum].title}</Hedding>
-        }
-    }, [])
     const title = data[servicenum].title
     var details = {
         'name': name,
@@ -91,12 +92,11 @@ const LightPurchase = props => {
             .then(data => {
                 console.log(data.Response)
                 if (data.Response === "testCart Recorded") {
-                    navigation.navigate('cart', { name:name});
+                    navigation.navigate('cart', { name: name });
                 }
             })
             .catch(e => console.log(e))
     }
-    // const [name,setName] = useState('Banuka');
 
     return (
         <View style={{ flex: 1 }}>

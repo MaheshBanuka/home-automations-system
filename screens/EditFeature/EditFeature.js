@@ -13,7 +13,7 @@ import Hedding from '../../components/Hedding';
 import bgImage from '../../assets/img/adminService.jpg';
 const Lightonoff = props => {
     const { navigation, route } = props;
-    const { name, serviceqty, feid,value } = route.params;
+    const { name, serviceqty, feid, value, screenid } = route.params;
     // const name = 'mahesh';
     // const serviceqty = 4;
 
@@ -21,22 +21,34 @@ const Lightonoff = props => {
         let tempList = []
         for (let i = 0; i < number; i++) {
             tempList.push(
-                <View key = {i+6} style={{width:350}}>
-                <View key={i+1} style={{ flexDirection: 'row' }}>
-                <Text style={{ fontSize: 20, color: 'white', fontWeight: 'bold' }}>{value[i]}</Text>
-                        <View key={i+4} style={{ width: '100%', flex: 1, marginBottom: 20, marginLeft: 5,alignItems: 'flex-end', }}>
-                            <TouchableOpacity key={i+5}
-                                onPress={() => { navigation.navigate('Renamefe',{name: name, index:i, value:value, feid:feid[i]}); }}
+                <View key={i + 6} style={{ width: 350 }}>
+                    <View key={i + 1} style={{ flexDirection: 'row' }}>
+                        <Text style={{ fontSize: 20, color: 'white', fontWeight: 'bold' }}>{value[i]}</Text>
+                        <View key={i + 4} style={{ width: '100%', flex: 1, marginBottom: 20, marginLeft: 5, alignItems: 'flex-end', }}>
+                            <TouchableOpacity key={i + 5}
+                                onPress={() => { navigation.navigate('Renamefe', { name: name, serviceqty: serviceqty, index: i, value: value, feid: feid,screenid:screenid }); }}
                                 // onPress={() => { console.log(feid[i]) }}
                                 style={[styles.btn,]}>
                                 <Text style={{ fontSize: 20 }}>Edit</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
-                    </View>
+                </View>
             )
         }
         return tempList;
+    }
+    const back = () => {
+        console.log(screenid)
+        if (screenid == 1) {
+            navigation.navigate('Lightonoff', { name: name, serviceqty: serviceqty });
+        }
+        else if (screenid == 2) {
+            navigation.navigate('LightBrightness', { name: name, serviceqty: serviceqty });
+        }
+        else if (screenid == 3) {
+            navigation.navigate('FanControl', { name: name, serviceqty: serviceqty });
+        }
     }
 
     return (
@@ -51,7 +63,12 @@ const Lightonoff = props => {
                         marginHorizontal: 2,
                     }}>
                         {/* <Icon name="arrow-back" size={28} style={{ paddingTop: 0, marginLeft: 5, color: 'white' }} /> */}
-                        <Text style={{ fontSize: 20, fontWeight: 'bold', paddingLeft: -50, color: 'white', paddingTop: 0 }}>Back</Text>
+                        {/* <Text style={{ fontSize: 20, fontWeight: 'bold', paddingLeft: -50, color: 'white', paddingTop: 0 }}>Back</Text> */}
+                        <TouchableOpacity onPress={() => {
+                            back()
+                        }}>
+                            <Text style={{ fontSize: 20, fontWeight: 'bold', paddingLeft: -50, color: 'white', paddingTop: 30 }}>Back</Text>
+                        </TouchableOpacity>
                         <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 170, color: 'white', paddingTop: 0 }}>{name}</Text>
                         {/* <Icon name="person" size={35} style={{ paddingTop: 0, color: 'white' }} /> */}
                     </View>

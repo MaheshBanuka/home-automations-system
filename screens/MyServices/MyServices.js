@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, ImageBackground, TouchableOpacity, ScrollView } from 'react-native';
-import { FlatList, StatusBar, SafeAreaView, StyleSheet, Text } from 'react-native';
+import { StatusBar, SafeAreaView, StyleSheet, Text } from 'react-native';
 // import Icon from 'react-native-vector-icons/MaterialIcons';
 import bgImage from '../../assets/img/bgi.jpg';
 import Hedding from '../../components/Hedding';
@@ -51,7 +51,7 @@ const Home = props => {
                     }}>
                         {/* <Icon name="arrow-back" size={28} style={{paddingTop: 30, marginLeft: 5, color: 'white'}} /> */}
                         <TouchableOpacity onPress={() => {
-                            navigation.navigate('Dashbord');
+                            navigation.navigate('Dashbord',{name: name});
                         }}>
                             <Text style={{ fontSize: 20, fontWeight: 'bold', paddingLeft: -50, color: 'white', paddingTop: 30 }}>Back</Text>
                         </TouchableOpacity>
@@ -69,15 +69,13 @@ const Home = props => {
                                 navigation.navigate('Lightonoff', { name: name, serviceqty: serviceqty[index], index: index });
                             }
                             else if (item === "Light Dimmer") {
-                                navigation.navigate('LightBrightness', { name: name, serviceqty: serviceqty[index], index: index });
-                                
+                                navigation.navigate('LightBrightness', { name: name, serviceqty: serviceqty[index], index: index });                            
                             }
                             else if (item === "Fan Controll") {
                                 navigation.navigate('FanControl', { name: name, serviceqty: serviceqty[index], index: index });
                             }
                             else if (item === "Door Lock/Unlock") {
                                 navigation.navigate('DoorControl', { name: name, serviceqty: serviceqty[index], index: index });
-                                console.log(serviceqty[index])
                             }
                         }}>
                             <Text style={styles.item}>{item}</Text>

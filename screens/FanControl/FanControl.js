@@ -25,6 +25,7 @@ const Lightonoff = props => {
     const [gateNo, setGateNo] = useState(0);
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState([]);
+    const [feid, setFeid] = useState([]);
     
     const lightdim = async (id) => {
         var details = {
@@ -148,6 +149,7 @@ const Lightonoff = props => {
             .then(response => response.json())
             .then(data => {
                 setValue(JSON.parse(data.servicenames));
+                setFeid(JSON.parse(data.featureid));
             })
             .catch(e => console.log(e))
     }
@@ -177,7 +179,7 @@ const Lightonoff = props => {
                     </View>
                     {/*<Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white', paddingTop: 10, marginBottom: 10, textAlign: 'left' }}>Control your lights here</Text>
                     */}
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => { navigation.navigate('EditFeature',{name: name,serviceqty:serviceqty,feid:feid,value:value,screenid:3}); }}>
                         <Text style={styles.textButtonshop}>
                             Edit Feature
                             </Text>

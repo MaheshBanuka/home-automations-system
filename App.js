@@ -40,7 +40,7 @@ const Stack = createStackNavigator();
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={'adminWelcome'}>
+      <Stack.Navigator initialRouteName={'getStarted'}>
       <Stack.Screen
           name="AdminAllOrder"
           component={AdminAllOrder}

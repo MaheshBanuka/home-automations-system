@@ -295,25 +295,6 @@ const cart = props => {
                                     )
                                 })}
                             </View>
-                            {/* <FlatList
-                        
-                            data={services}
-                            renderItem ={renderItem}
-                            key={(item)=>item.id}
-                            /> */}
-                        </View>
-                        <View style={styles.row}>
-                            {/* <TouchableOpacity>
-                            <Text style={styles.textButtonupdate}>
-                                Update
-                            </Text>
-                        </TouchableOpacity>
- */}
-                            {/* <TouchableOpacity>
-                                <Text style={styles.textButtonremove}>
-                                    Remove
-                                </Text>
-                            </TouchableOpacity> */}
                         </View>
                         <View style={styles.extraText}>
                             <Text style={styles.extraTextTotwo}>────────────────────</Text>

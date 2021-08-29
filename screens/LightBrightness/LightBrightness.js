@@ -19,13 +19,14 @@ import bgImage from '../../assets/img/adminUserManagement.jpg';
 const LightBrightness = props => {
     const { navigation, route } = props;
     const { name, serviceqty, index } = route.params;
-    
+    console.log(serviceqty)
     // const name = 'banuka';
     const [lightState, setLightState] = useState(0);
     const [gateNo, setGateNo] = useState(0);
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState([]);
-    
+    const [feid, setFeid] = useState([]);
+
     const lightdim = async (id) => {
         var details = {
             'id': id,
@@ -44,7 +45,7 @@ const LightBrightness = props => {
             headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
             body: formBodydata
         };
-        fetch('http://192.168.8.101:8080/demo_war/onoff', requestOptions)
+        fetch('http://192.168.8.100:8080/demo_war/onoff', requestOptions)
             // .then(response=>console.log(response._bodyBlob))
             .then(response => response.json())
             .then(data => {
@@ -73,7 +74,7 @@ const LightBrightness = props => {
             headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
             body: formBodydata
         };
-        fetch('http://192.168.8.101:8080/demo_war/onoff', requestOptions)
+        fetch('http://192.168.8.100:8080/demo_war/onoff', requestOptions)
             // .then(response=>console.log(response._bodyBlob))
             .then(response => response.json())
             .then(data => {
@@ -99,7 +100,7 @@ const LightBrightness = props => {
                                 marginRight: 5,
                             }}>
                             <TouchableOpacity key={i+3}
-                                onPress={() => lightdim(i)}
+                                onPress={() => lightdim(3)}
                                 style={[
                                     styles.btn,
                                     lightState === 'Close' ? styles.btnActivate : null,
@@ -110,7 +111,7 @@ const LightBrightness = props => {
                         <View key={i+4}
                             style={{ width: '100%', flex: 1, marginBottom: 20, marginLeft: 5 }}>
                             <TouchableOpacity key={i+5}
-                                onPress={() => lightldim(i)}
+                                onPress={() => lightldim(3)}
                                 style={[
                                     styles.btn,
                                     lightState === 'Close' ? styles.btnActivate : null,
@@ -148,6 +149,7 @@ const LightBrightness = props => {
             .then(response => response.json())
             .then(data => {
                 setValue(JSON.parse(data.servicenames));
+                setFeid(JSON.parse(data.featureid));
             })
             .catch(e => console.log(e))
     }
@@ -168,7 +170,7 @@ const LightBrightness = props => {
                     }}>
                         {/* <Icon name="arrow-back" size={28} style={{ paddingTop: 0, marginLeft: 5, color: 'white' }} /> */}
                         <Text style={{ fontSize: 20, fontWeight: 'bold', paddingLeft: -50, color: 'white', paddingTop: 0 }}>Back</Text>
-                        <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 170, color: 'white', paddingTop: 0 }}>Username</Text>
+                        <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 170, color: 'white', paddingTop: 0 }}>{name}</Text>
                         {/* <Icon name="person" size={35} style={{ paddingTop: 0, color: 'white' }} /> */}
                     </View>
                     <Hedding style={{ color: 'white', }}>Light Brightenss Control</Hedding>
@@ -177,7 +179,7 @@ const LightBrightness = props => {
                     </View>
                     {/*<Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white', paddingTop: 10, marginBottom: 10, textAlign: 'left' }}>Control your lights here</Text>
                     */}
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => { navigation.navigate('EditFeature',{name: name,serviceqty:serviceqty,feid:feid,value:value,screenid: 2}); }}>
                         <Text style={styles.textButtonshop}>
                             Edit Feature
                             </Text>

@@ -16,10 +16,11 @@ import Hedding from '../../components/Hedding';
 import bgImage from '../../assets/img/adminUserManagement.jpg';
 const Rename  = props => {
     const { navigation, route } = props;
-    const { name,index,value,feid } = route.params;
+    const { name,index,value,feid,serviceqty,screenid } = route.params;
     const [fvalue, setFvalue] = useState(value);
+    const [fid, setFid] = useState(feid);
     const [fname, setFname] = useState(value[index]);
-    const [id, setId] = useState(feid);
+    const [id, setId] = useState(fid[index]);
 
     const update = async () => {
         var details = {
@@ -50,7 +51,7 @@ const Rename  = props => {
                         "Message",
                         "Feature Details Updated",
                         [
-                          { text: "OK", onPress: () => navigation.navigate('EditFeature',{value:fvalue}) }
+                          { text: "OK", onPress: () => navigation.navigate('EditFeature',{name:name, value:value, serviceqty:serviceqty, feid:fid,screenid:screenid}) }
                         ]
                       ); 
                 }

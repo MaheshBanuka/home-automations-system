@@ -28,8 +28,8 @@ const Lightonoff = props => {
     const serid = 1;
     const lightdim = async (id) => {
         var details = {
-            'id': id,
-            'value': "dim"
+            'id': 6,
+            'value': "On_D"
         };
         var formBody = [];
         for (var property in details) {
@@ -38,13 +38,13 @@ const Lightonoff = props => {
             formBody.push(encodedKey + "=" + encodedValue);
         }
         let formBodydata = formBody.join("&");
-        console.log("pressed");
+        console.log(id);
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
             body: formBodydata
         };
-        fetch('http://192.168.8.101:8080/demo_war/onoff', requestOptions)
+        fetch('http://192.168.8.100:8080/demo_war/onoff', requestOptions)
             // .then(response=>console.log(response._bodyBlob))
             .then(response => response.json())
             .then(data => {
@@ -57,8 +57,8 @@ const Lightonoff = props => {
 
     const lightldim = async (id) => {
         var details = {
-            'id': id,
-            'value': "ldim"
+            'id': 3,
+            'value': "Off_D"
         };
         var formBody = [];
         for (var property in details) {
@@ -67,13 +67,13 @@ const Lightonoff = props => {
             formBody.push(encodedKey + "=" + encodedValue);
         }
         let formBodydata = formBody.join("&");
-        console.log("pressed");
+        console.log(id);
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
             body: formBodydata
         };
-        fetch('http://192.168.8.101:8080/demo_war/onoff', requestOptions)
+        fetch('http://192.168.8.100:8080/demo_war/onoff', requestOptions)
             // .then(response=>console.log(response._bodyBlob))
             .then(response => response.json())
             .then(data => {
@@ -178,7 +178,7 @@ const Lightonoff = props => {
                     </View>
                     {/*<Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white', paddingTop: 10, marginBottom: 10, textAlign: 'left' }}>Control your lights here</Text>
                     */}
-                    <TouchableOpacity onPress={() => { navigation.navigate('EditFeature',{name: name,serviceqty:serviceqty,feid:feid,value:value}); }}>
+                    <TouchableOpacity onPress={() => { navigation.navigate('EditFeature',{name: name,serviceqty:serviceqty,feid:feid,value:value,screenid:serid}); }}>
                         <Text style={styles.textButtonshop}>
                             Edit Feature
                             </Text>

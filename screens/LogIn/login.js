@@ -21,12 +21,12 @@ import { async } from 'node-stream-zip';
 const login = props => {
 
   const { navigation } = props;
-  // const [name, setName] = useState('');
+  const [name, setName] = useState('');
   const [nameu, setNameu] = useState('');
   const [responsedata, setResponsedata] = useState([]);
   const [password, setPassword] = useState('123');
   const passwordRef = useRef();
-  const name='mahesh'
+  // const name='mahesh'
   const loginHandler = async () => {
     // console.log('jhghj');
     navigation.navigate('Dashbord', { name: name });
@@ -51,37 +51,46 @@ const login = props => {
       .then(response => response.json())
       .then(data => {
         if (data.type === '"admin"' && data.status == '"active"') {
-          navigation.navigate('adminWelcome', { name: name });
+          // navigation.navigate('adminWelcome', { name: name });
           // navigation.navigate('Dashbord');
 
-          // navigation.reset({
-          //     index: 0,
-          //     routes: [
-          //       {
-          //         name: 'Trip',
-          //         params: { name },
-          //       },
-          //     ],
-          //   });
+          navigation.reset({
+              index: 0,
+              routes: [
+                {
+                  name: 'adminWelcome',
+                  params: { name: name },
+                },
+              ],
+            });
         }
         else if (data.type === '"user"' && data.status == '"active"') {
-          navigation.navigate('Dashbord', { name: name });
+          // navigation.navigate('Dashbord', { name: name });
+          navigation.reset({
+            index: 0,
+            routes: [
+              {
+                name: 'Dashbord',
+                params: { name: name },
+              },
+            ],
+          });
         }
         else if (data.type === '"user"' && data.status == '"banned"') {
           Alert.alert(
             "Message",
-            "User Banned Plese Contact Administrator",
+            "We are sorry to inform that. Your account has been temporally deactivated. Please contact administrator for more information. Thank you!",
             [
-              { text: "OK" }
+              { text: "OK" , onPress: () => navigation.navigate('login')}
             ]
           );
         }
         else if (data.type === '"admin"' && data.status == '"banned"') {
           Alert.alert(
             "Message",
-            "User Banned Please Contact Administrator",
+            "We are sorry to inform that. Your account has been temporally deactivated. Please contact administrator for more information. Thank you!",
             [
-              { text: "OK" }
+              { text: "OK", onPress: () => navigation.navigate('login')}
             ]
           );
         }
@@ -176,8 +185,8 @@ const login = props => {
               padding: 10,
             }}>────────  or  ────────</Text>
             <SubmitButton onPress={() => {
-              // navigation.navigate('Signup');
-              email()
+              navigation.navigate('Signup');
+              // email()
             }}>Sign UP</SubmitButton>
           </View>
         </ScrollView>

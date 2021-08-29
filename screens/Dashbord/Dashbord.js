@@ -1,20 +1,67 @@
 import React, { useState } from 'react';
-import { View, ImageBackground, TouchableOpacity,ScrollView } from 'react-native';
+import { View, ImageBackground, TouchableOpacity, ScrollView } from 'react-native';
 import { FlatList, StatusBar, SafeAreaView, StyleSheet, Text } from 'react-native';
 // import Icon from 'react-native-vector-icons/MaterialIcons';
 import bgImage from '../../assets/img/adminUserManagement.jpg';
 import Hedding from '../../components/Hedding';
 const Home = props => {
     const { navigation, route } = props;
-    // const [name,setName] = useState('Banuka');
     const { name,servicenames,serviceqty} = route.params;
+    // let name = "amali";
+    const [servicename, setServicename] = useState([])
+    const [serviceid, setServieid] = useState([])
+    const [servicecost, setServiecost] = useState([])
+
+    const servicedata = async () => {
+        var details = {
+
+        };
+        var formBody = [];
+        for (var property in details) {
+            var encodedKey = encodeURIComponent(property);
+            var encodedValue = encodeURIComponent(details[property]);
+            formBody.push(encodedKey + "=" + encodedValue);
+        }
+        let formBodydata = formBody.join("&");
+        console.log("done");
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+            body: formBodydata
+        };
+        fetch('http://192.168.8.100:8080/demo_war/viewservice', requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                setServicename(JSON.parse(data.servicenames));
+                setServieid(JSON.parse(data.serviceid));
+                setServiecost(JSON.parse(data.servicecost));
+            })
+            .catch(e => console.log(e))
+    }
+    React.useEffect(() => {
+        servicedata()
+    }, [])
+
+    const displayNumber = () => {
+        let tempList = []
+        for (let i = 0; i < serviceid.length; i++) {
+            tempList.push(
+                <TouchableOpacity onPress={() => {
+                    navigation.navigate('LightPurchase', { name: name, servicenum: i });
+                }}>
+                    <Text style={styles.item}>{servicename[i]}</Text>
+                </TouchableOpacity>
+            )
+        }
+        return tempList;
+    }
+
     return (
-        
+
         <View style={{ flex: 1 }}>
             <StatusBar translucent backgroundColor="rgba(0,0,0,0)" />
             <ImageBackground style={{ flex: 1 }} source={bgImage} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', height: null, width: null, tintColor: 'cyan', }}>
                 <SafeAreaView>
-                    
                     <View style={{
                         paddingVertical: 20,
                         flexDirection: 'row',
@@ -25,34 +72,35 @@ const Home = props => {
                         <TouchableOpacity onPress={() => {
                             navigation.navigate('login');
                         }}>
-                        <Text style={{ fontSize: 20, fontWeight: 'bold', paddingLeft: -50, color: 'white', paddingTop: 30 }}>LogOut</Text>
+                            <Text style={{ fontSize: 20, fontWeight: 'bold', paddingLeft: -50, color: 'white', paddingTop: 30 }}>LogOut</Text>
                         </TouchableOpacity>
                         <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 150, color: 'white', paddingTop: 30 }}>{name}</Text>
                         {/* <Icon name="person" size={35} style={{paddingTop: 30, color: 'white'}} />   */}
                     </View>
                     <Hedding style={{ color: 'white', }}>Our Services</Hedding>
                 </SafeAreaView>
-
-                    <View >     
-                    <TouchableOpacity onPress={() => {
-                    navigation.navigate('MyServices', {name: name,servicenames:servicenames,serviceqty:serviceqty});
-                }}>
+                <View style={styles.row}>
+                    <View >
+                        <TouchableOpacity onPress={() => {
+                            navigation.navigate('MyServices', { name: name });
+                        }}>
                             <Text style={styles.myserv}>
-                                   My Services 
+                                My Services
                             </Text>
                         </TouchableOpacity>
-                        </View>
-                        <View>
-                            <TouchableOpacity onPress={() => {
-                    navigation.navigate('cart', {name: name});
-                }}>
-                                <Text style={styles.cart}>
-                                   Cart  
-                                </Text>
-                            </TouchableOpacity>              
                     </View>
+                    <View>
+                        <TouchableOpacity onPress={() => {
+                            navigation.navigate('cart', { name: name });
+                        }}>
+                            <Text style={styles.cart}>
+                                Cart
+                                </Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
                 <ScrollView>
-                <TouchableOpacity onPress={() => {
+                    {/* <TouchableOpacity onPress={() => {
                     navigation.navigate('LightPurchase', {name: name,servicenum:0});
                 }}>
                     <Text style={styles.item}>Light On/Off</Text>
@@ -81,8 +129,8 @@ const Home = props => {
                     navigation.navigate('LightPurchase', {name: name,servicenum:5});
                 }}>
                     <Text style={styles.item}>Door Lock/Unlock</Text>
-                </TouchableOpacity>
-                
+                </TouchableOpacity> */}
+                    {displayNumber()}
                 </ScrollView>
             </ImageBackground>
         </View>
@@ -120,8 +168,8 @@ const styles = StyleSheet.create({
         marginTop: 10,
         alignItems: 'center',
         alignContent: 'center',
-       
-       
+
+
     },
     myserv: {
         padding: 10,
@@ -130,7 +178,7 @@ const styles = StyleSheet.create({
         color: 'white',
         fontWeight: 'bold',
         justifyContent: 'center',
-        margin: 10,  
+        margin: 10,
         fontSize: 20,
     },
     cart: {
@@ -138,11 +186,11 @@ const styles = StyleSheet.create({
         backgroundColor: 'orange',
         borderRadius: 15,
         color: 'white',
-        margin: 10,   
+        margin: 10,
         fontWeight: 'bold',
         justifyContent: 'center',
         width: 110,
-       paddingLeft: 35,
+        paddingLeft: 35,
         fontSize: 20,
     },
     textButton: {
@@ -154,7 +202,10 @@ const styles = StyleSheet.create({
         width: 200,
         paddingLeft: 45,
         fontSize: 20,
-        
+    },
+    row: {
+        flexDirection: 'row',
+        paddingLeft: -15,
     }
 });
 
